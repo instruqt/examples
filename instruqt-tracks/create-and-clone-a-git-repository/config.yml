@@ -1,0 +1,6 @@
+version: "3"
+containers:
+- name: shell
+  image: gcr.io/instruqt/shell-git:latest
+  shell: /bin/bash
+  memory: 128

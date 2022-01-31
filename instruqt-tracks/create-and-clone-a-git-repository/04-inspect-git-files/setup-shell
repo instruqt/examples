@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Replace this variable with the directory you want to watch
+DIRECTORY_TO_WATCH="/root/my-repo/.git"
+RESULT_FILE="/tmp/result"
+RESULT_SCRIPT="/usr/local/bin/write-result"
+
+cat > ${RESULT_SCRIPT} << EOF
+#!/bin/bash
+echo "success" > ${RESULT_FILE}
+EOF
+
+chmod +x ${RESULT_SCRIPT}
+inotifyd ${RESULT_SCRIPT} ${DIRECTORY_TO_WATCH} &

@@ -1,0 +1,16 @@
+slug: multi-k8s-track
+type: track
+title: Multiple Kubernetes Cluster Track
+teaser: Example track with two Kubernetes clusters.
+description: |-
+  This track shows you how you could set up two k3s clusters in the same environment.
+icon: https://cdn.instruqt.com/assets/templates/kubernetes.png
+tags:
+- ""
+owner: examples
+developers:
+- sean@instruqt.com
+private: true
+published: true
+show_timer: true
+checksum: "16279114299978002431"

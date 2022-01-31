@@ -1,0 +1,23 @@
+#!/bin/bash
+REPODIR="git-hello-world"
+
+CLONECHECK=$(cat /root/.bash_history | grep "^git clone .*instruqt/$REPODIR.*" | wc -l)
+if [ $CLONECHECK -eq 0 ]; then
+  echo "DIAG: The git clone command was not run properly."
+  exit 1
+fi
+
+if [ ! -d $REPODIR ]; then
+  echo "DIAG: There is no directory called $REPODIR"
+  exit 1
+fi
+
+pushd $REPODIR
+REPOCHECK=$(git rev-parse --is-inside-work-tree 2>/dev/null)
+if ! $REPOCHECK; then
+  echo "DIAG: There seems to be no git repository. Try cloning the Git repository."
+  exit 1
+fi
+popd
+
+exit 0

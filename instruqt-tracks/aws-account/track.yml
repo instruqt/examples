@@ -1,0 +1,14 @@
+slug: aws-account
+id: rmbhlv6j0ueq
+type: track
+title: AWS Account
+teaser: Play with AWS
+description: Play with AWS
+icon: https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg
+tags: []
+owner: examples
+developers:
+- bruno@instruqt.com
+private: false
+published: true
+checksum: "13353551960788857015"

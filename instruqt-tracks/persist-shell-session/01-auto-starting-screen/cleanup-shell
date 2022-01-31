@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# Disables screen auto-start before next challenge.
+
+head -n -3 /root/.bashrc > /tmp/bashrc
+cp /tmp/bashrc /root/.bashrc

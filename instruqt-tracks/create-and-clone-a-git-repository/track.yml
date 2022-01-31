@@ -1,0 +1,20 @@
+slug: create-and-clone-a-git-repository
+id: jr1xt3myr3yp
+type: track
+title: Create and clone a Git repository
+teaser: An introduction to the basics of Git.
+description: |-
+  In this track you will learn how to *create* a new repository and how to
+  *clone* an existing repository.
+
+  ![Git](https://git-scm.com/images/branching-illustration@2x.png "Git version control")
+icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/git.png
+tags:
+- git
+- version control
+owner: examples
+developers:
+- bruno@instruqt.com
+private: false
+published: true
+checksum: "7233672807699942109"

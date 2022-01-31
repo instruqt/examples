@@ -1,0 +1,16 @@
+slug: vnc-proof-of-concept
+type: track
+title: VNC Proof of Concept
+teaser: Proof of concept to see VNC working in a Service tab.
+description: |-
+  A long description of the track.
+
+  You can use any GitHub flavoured markdown.
+icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/default.png
+tags: []
+owner: examples
+developers:
+- sean@instruqt.com
+private: true
+published: true
+checksum: "10896157752935417217"

@@ -1,0 +1,8 @@
+#!/bin/bash
+COMMAND=$(cat /root/.bash_history | grep "^git help init$" | wc -l)
+if [ $COMMAND -eq 0 ]; then
+  echo "DIAG: The git help command for init was not run."
+  exit 1
+fi
+
+exit 0

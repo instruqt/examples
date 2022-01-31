@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Check if /tmp/result contains the string "success"
+# if not, fail with a hint
+if ! grep -q success "/tmp/result"; then
+  echo "DIAG: You did not access the directory /root/my-repo/.git"
+  # exit 1
+fi
+
+exit 0
