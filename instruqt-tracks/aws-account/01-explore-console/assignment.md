@@ -10,6 +10,8 @@ notes:
     An AWS Account has been created for you.
 
     Use the AWS console or the `aws` CLI to interact with it.
+
+    Your login credentials for the AWS console and command line are shown on the Console tab on the left.
 tabs:
 - title: Console
   type: service

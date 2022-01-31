@@ -1,4 +1,5 @@
 slug: kubernetes-cluster-eks
+id: 19yhkcoibcfu
 type: track
 title: Amazon Elastic Kubernetes Service (EKS)
 teaser: A template track that includes a EKS cluster.
@@ -12,4 +13,4 @@ developers:
 - sean@instruqt.com
 private: true
 published: true
-checksum: "1824055852278113147"
+checksum: "11521282859196272901"

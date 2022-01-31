@@ -1,5 +1,6 @@
 ---
 slug: elastic-kubernetes-service
+id: j79mqhg52vp3
 type: challenge
 title: AWS Elastic Kubernetes Service (EKS)
 teaser: This track includes an Amazon EKS cluster and a workstation with kubectl and
