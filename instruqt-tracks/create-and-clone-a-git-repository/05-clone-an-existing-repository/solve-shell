@@ -1,2 +1,3 @@
 #!/bin/bash
+echo "git clone https://git@github.com/instruqt/git-hello-world.git" >> /root/.bash_history
 git clone https://git@github.com/instruqt/git-hello-world.git
