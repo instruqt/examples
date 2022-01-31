@@ -22,3 +22,8 @@ timelimit: 900
 ## Your repository
 
 Take a look inside the files in the *.git* directory inside your newly created repository.
+
+```
+cd my-repo/.git
+ls
+```

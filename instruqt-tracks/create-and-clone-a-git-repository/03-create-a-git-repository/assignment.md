@@ -24,3 +24,7 @@ timelimit: 900
 
 To start working with Git, you need a repository.
 Start by creating your first repository in the folder **my-repo**
+
+```
+git init -q my-repo
+```

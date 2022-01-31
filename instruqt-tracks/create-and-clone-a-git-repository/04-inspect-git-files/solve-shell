@@ -1,1 +1,3 @@
 #!/bin/bash
+cd /root/my-repo/.git
+ls
