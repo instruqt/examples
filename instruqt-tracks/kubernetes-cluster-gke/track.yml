@@ -1,4 +1,5 @@
 slug: kubernetes-cluster-gke
+id: vqv2q5yjilbw
 type: track
 title: Google Kubernetes Engine (GKE)
 teaser: A template track that includes a GKE cluster.
@@ -12,4 +13,4 @@ developers:
 - sean@instruqt.com
 private: true
 published: true
-checksum: "2580230538361263277"
+checksum: "18117624043582784655"

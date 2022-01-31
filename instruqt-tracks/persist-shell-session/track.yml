@@ -12,6 +12,6 @@ tags: []
 owner: examples
 developers:
 - sean@instruqt.com
-private: true
+private: false
 published: true
 checksum: "11217515155072234101"

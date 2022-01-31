@@ -1,5 +1,6 @@
 ---
 slug: google-kubernetes-engine
+id: p4ib6cs3gjsb
 type: challenge
 title: Google Kubernetes Engine (GKE)
 teaser: This track includes a single-zone, three node GKE cluster and a workstation
