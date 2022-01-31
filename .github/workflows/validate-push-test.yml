@@ -14,7 +14,7 @@ on:
     branches:
       - master
 jobs:
-  Instruqt-Demos-Test:
+  Instruqt-Examples-Test:
     runs-on: ubuntu-latest
     env:
       # Set these values to match your environment. Your token should be 
