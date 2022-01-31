@@ -27,10 +27,11 @@ jobs:
         # List of track directories inside TRACK_DIR
         # Add any directories that you want to include.
         tracks:
-        - build-custom-gcp-images
-        - google-artifact-registry-container
-        - instruqt-cli-getting-started
-        - instruqt-with-terraform
+        - aws-account
+        - create-and-clone-a-git-repository
+        - multi-k8s-track
+        - persist-shell-session
+        - vnc-proof-of-concept
     steps:
       - run: echo "📝 Instruqt validate/push/test job was triggered by a ${{ github.event_name }} event."
       - name: Check out repository code
