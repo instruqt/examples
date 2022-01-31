@@ -12,7 +12,7 @@ concurrency: 1
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   Instruqt-Demos-Test:
     runs-on: ubuntu-latest
