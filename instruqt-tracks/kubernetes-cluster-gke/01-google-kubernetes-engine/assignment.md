@@ -22,7 +22,7 @@ tabs:
   hostname: cloud-client
   port: 80
 difficulty: basic
-timelimit: 3600
+timelimit: 1800
 ---
 We've spun up a GKE cluster and installed the **kubectl** and **helm** commands on your workstation.
 

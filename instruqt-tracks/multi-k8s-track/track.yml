@@ -4,6 +4,8 @@ title: Multiple Kubernetes Cluster Track
 teaser: Example track with two Kubernetes clusters.
 description: |-
   This track shows you how you could set up two k3s clusters in the same environment.
+
+  **WARNING:** This track is big and can be expensive to run. Do not make it public or it may be compromised and used for mining cryptocurrency.
 icon: https://cdn.instruqt.com/assets/templates/kubernetes.png
 tags:
 - ""

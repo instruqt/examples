@@ -6,6 +6,8 @@ teaser: A template track that includes a GKE cluster.
 description: This template includes a single-zone, three node GKE cluster and a workstation
   with the **kubectl** and **gcloud** commands preinstalled. Use it as a starting
   point for your own K8s enabled tracks.
+
+  **WARNING:** This track is big and expensive to run. Do not make it public or it may be compromised and used for mining cryptocurrency.
 icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/default.png
 tags: []
 owner: examples

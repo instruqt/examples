@@ -8,4 +8,25 @@ containers:
 aws_accounts:
 - name: test
   managed_policies:
-  - arn:aws:iam::aws:policy/AdministratorAccess
+  - arn:aws:iam::aws:policy/AmazonEC2FullAccess
+  - arn:aws:iam::aws:policy/AmazonVPCFullAccess
+  iam_policy: |
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "RequireLessThanXLInstanceType",
+          "Effect": "Deny",
+          "Action": "ec2:RunInstances",
+          "Resource": "arn:aws:ec2:::instance/*",
+          "Condition": {
+            "StringNotEquals": {
+              "ec2:InstanceType": [
+                "t2.nano",
+                "t2.micro"
+              ]
+            }
+          }
+        }
+      ]
+    }

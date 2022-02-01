@@ -18,7 +18,7 @@ tabs:
   type: website
   url: https://ubuntu.${_SANDBOX_ID}.instruqt.io:8443/vnc.html?host=ubuntu.${_SANDBOX_ID}.instruqt.io&port=8443
 difficulty: basic
-timelimit: 1200
+timelimit: 600
 ---
 Click on the **VNC - Embedded** or **VNC - New Window** tabs to log onto VNC. The password is `instruqt`.
 

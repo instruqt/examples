@@ -28,7 +28,7 @@ tabs:
   path: /api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#!/
   port: 8001
 difficulty: basic
-timelimit: 3600
+timelimit: 600
 ---
 
 👋 Introduction
