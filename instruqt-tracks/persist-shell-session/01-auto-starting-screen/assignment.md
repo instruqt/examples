@@ -40,9 +40,9 @@ Let's get started!
 <h2 class="cyan">I'm Just Here for the Code</h2>
 <hr class="cyan">
 
-Find the source code for this track in our templates repo. Click the link below to get the source code:
+Find the source code for this track in our examples repo. Click the link below to get the source code:
 
-[Instruqt Templates Repo](https://github.com/instruqt/templates/tree/main/persist-shell-session)
+[Instruqt Examples Repo](https://github.com/instruqt/examples/tree/master/instruqt-tracks/persist-shell-session)
 
 The setup script in the 01-auto-starting-screen directory can be copied and used in your own track.
 
