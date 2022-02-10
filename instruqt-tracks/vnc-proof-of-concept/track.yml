@@ -6,7 +6,7 @@ description: |-
   A long description of the track.
 
   You can use any GitHub flavoured markdown.
-icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/default.png
+icon: https://github.com/instruqt/instruqt-track-assets/blob/master/track-icons/VNC-logo.png?raw=true
 tags: []
 owner: examples
 developers:
