@@ -31,7 +31,7 @@ apt -y install google-cloud-sdk kubectl helm
 
 # Fetch our Google Service Account credentials
 mkdir -p /root/.config/gcloud
-echo $INSTRUQT_GCP_PROJECT_GCPPROJECT_SERVICE_ACCOUNT_KEY | base64 -d | jq > /root/.config/gcloud/credentials
+echo $INSTRUQT_GCP_PROJECT_GCPPROJECT_SERVICE_ACCOUNT_KEY | base64 -d > /root/.config/gcloud/credentials
 
 # Activate the service account
 gcloud auth activate-service-account --key-file /root/.config/gcloud/credentials
