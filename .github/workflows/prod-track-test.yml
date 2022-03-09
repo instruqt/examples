@@ -21,7 +21,8 @@ concurrency:
 on:
   push:
     branches:
-      - main
+    # Your branch might be called main. Make sure it matches your main branch!
+      - master
 jobs:
   Get-Track-Slugs:
   # Fetches track slugs and ids from the track-slugs.yml file
