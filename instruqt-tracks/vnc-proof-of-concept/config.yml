@@ -4,7 +4,6 @@ virtualmachines:
   image: ubuntu-os-cloud/ubuntu-1804-lts
   shell: /bin/bash
   machine_type: n1-standard-1
-  # You *must* allow external ingress for this template to work!
   allow_external_ingress:
   - high-ports
   - http

@@ -1,4 +1,5 @@
 slug: persist-shell-session
+id: mofbttvmneow
 type: track
 title: Persistent Shell Environments
 teaser: Run a service in the background or keep a long-running command going between
@@ -14,4 +15,4 @@ developers:
 - sean@instruqt.com
 private: false
 published: true
-checksum: "11217515155072234101"
+checksum: "14719089215293654899"

@@ -1,0 +1,7 @@
+---
+tracks:
+  - { slug: aws-account, id: rmbhlv6j0ueq }
+  - { slug: create-and-clone-a-git-repository, id: jr1xt3myr3yp }
+  - { slug: multi-k8s-track, id: zacliu4wkuqy }
+  - { slug: persist-shell-session, id: mofbttvmneow }
+  - { slug: vnc-proof-of-concept, id: e8dahfglijwf }
