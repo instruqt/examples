@@ -58,15 +58,12 @@ jobs:
         uses: ./.github/actions/instruqt-track-validate
         with:
           path: ${{ env.TRACK_DIR }}/${{ matrix.tracks.slug }}
-          id: ${{ matrix.tracks.id }}
       - name: Track Push
         uses: ./.github/actions/instruqt-track-push
         with:
           path: ${{ env.TRACK_DIR }}/${{ matrix.tracks.slug }}
-          id: ${{ matrix.tracks.id }}
       - name: Instruqt Track Test
         uses: ./.github/actions/instruqt-track-test
         with:
           path: ${{ env.TRACK_DIR }}/${{ matrix.tracks.slug }}
-          id: ${{ matrix.tracks.id }}
       - run: echo "🤖 This job's status is ${{ job.status }}."
