@@ -49,4 +49,4 @@ runs:
       yq eval --inplace 'del(.id)' track.yml
 
       # Inject the correct id back into the file
-      yq eval --inplace '.id = ${{ inputs.id }}' track.yml
+      yq eval --inplace '.id = "${{ inputs.id }}"' track.yml
