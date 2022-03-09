@@ -1,4 +1,5 @@
 slug: multi-k8s-track
+id: zacliu4wkuqy
 type: track
 title: Multiple Kubernetes Cluster Track
 teaser: Example track with two Kubernetes clusters.
@@ -15,4 +16,4 @@ developers:
 private: true
 published: true
 show_timer: true
-checksum: "16279114299978002431"
+checksum: "5209257787166920548"

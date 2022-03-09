@@ -1,5 +1,6 @@
 ---
 slug: gnu-screen-intro
+id: xwbxzy5l0bau
 type: challenge
 title: "\U0001F5A5️ GNU Screen - A Terminal Window Manager"
 teaser: The handy Linux screen program allows you connect and disconnect from login

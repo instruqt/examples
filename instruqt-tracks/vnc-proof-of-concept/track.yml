@@ -1,4 +1,5 @@
 slug: vnc-proof-of-concept
+id: e8dahfglijwf
 type: track
 title: VNC Proof of Concept
 teaser: Proof of concept to see VNC working in a Service tab.
@@ -13,4 +14,4 @@ developers:
 - sean@instruqt.com
 private: false
 published: true
-checksum: "10896157752935417217"
+checksum: "10208750341524710344"
