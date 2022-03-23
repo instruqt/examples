@@ -45,7 +45,7 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.Get-Track-Slugs.outputs.matrix) }}
     steps:
-      - run: echo "🧪 Running validate/push/test cycle on dev tracks."
+      - run: echo "🧪 Running validate/push/test cycle on prod tracks."
       - name: Check out repository code
         uses: actions/checkout@v2
       - id: install-yq
