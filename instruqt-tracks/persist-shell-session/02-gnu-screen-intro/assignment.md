@@ -25,8 +25,8 @@ Have you ever wished you could disconnect from a remote SSH session and reconnec
 
 The screen command allows you to set up login sessions and terminal windows that you can disconnect from and reconnect to without stopping your running programs.<br>
 
-<h2 class="cyan">Start a New Screen Session</h2>
-<hr class="cyan">
+Start a New Screen Session
+==========================
 
 Let's learn some screen basics. Run the following command to start up a new screen session called "myscreen".
 
@@ -38,8 +38,8 @@ Notice how your terminal window has changed a bit. The status bar at the bottom 
 
 <img src="https://github.com/instruqt/instruqt-training-assets/blob/master/track-images/screen_navbar.png?raw=true"></img>
 
-<h2 class="cyan">CTRL-A for Command Mode</h2>
-<hr class="cyan">
+CTRL-A for Command Mode
+=======================
 
 Screen uses the keyboard shortcut `CTRL-A` to activate command mode. After you type `CTRL-A` you can enter other keystrokes to perform actions. Let's try bringing up the help menu.
 
@@ -47,8 +47,8 @@ Type `CTRL-A` and then type a question mark `?`. This displays a menu of all the
 
 Hit any key to exit out of the help screen.<br>
 
-<h2 class="cyan">Rename a Window</h2>
-<hr class="cyan">
+Rename a Window
+===============
 
 Let's rename our current window. Use your `CTRL-A` shortcut and this time type in a capital letter `A` (SHIFT+A). You'll be prompted to give a new name to the current window. Delete the `bash` text and rename your window `instruqt`. Press `ENTER`.
 
@@ -56,8 +56,7 @@ You can rename a window any time you want.
 
 <img src="https://github.com/instruqt/instruqt-training-assets/blob/master/track-images/set_window_title.png?raw=true"></img>
 
-<h2 class="cyan">Create a New Window</h2>
-<hr class="cyan">
+Create a New Window
 
 To create a new window you'll again use `CTRL-A` but this time hit letter `c`, for create. You'll see a second tab appear in your screen terminal.
 
@@ -69,8 +68,8 @@ Run the `htop` command in this window. htop is an interactive process viewer for
 htop
 ```
 
-<h2 class="cyan">Switch Between Windows</h2>
-<hr class="cyan">
+Switch Between Windows
+======================
 
 Switching between windows is easy - just use your `CTRL-A` shortcut and press either the letter `p` or `n`. P stands for previous and N stands for next. You can also use the numbers next to the window names to navigate. Try a few commands now:
 
@@ -83,8 +82,8 @@ Your current window is highlighted in green and surrounded by red parentheses.
 
 <img src="https://github.com/instruqt/instruqt-training-assets/blob/master/track-images/screen_multi_window.png?raw=true"></img>
 
-<h2 class="cyan">Detach and Reattach</h2>
-<hr class="cyan">
+Detach and Reattach
+===================
 
 When you're ready to detatch from your screen session use the same `CTRL-A` shortcut and press letter `d`, for detatch. Your screen session will continue running in the background!
 
