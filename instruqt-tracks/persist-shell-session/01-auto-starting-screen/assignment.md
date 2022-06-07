@@ -38,8 +38,8 @@ h2.cyan { color: cyan; }
 
 Let's get started!
 
-<h2 class="cyan">I'm Just Here for the Code</h2>
-<hr class="cyan">
+I'm Just Here for the Code
+==========================
 
 Find the source code for this track in our examples repo. Click the link below to get the source code:
 
@@ -47,8 +47,8 @@ Find the source code for this track in our examples repo. Click the link below t
 
 The setup script in the 01-auto-starting-screen directory can be copied and used in your own track.
 
-<h2 class="cyan">Easy Navigation with Shift-Arrow Keys</h2>
-<hr class="cyan">
+Easy Navigation with Shift-Arrow Keys
+=====================================
 
 Click into the Instruqt Shell tab on the left and navigate between windows holding down `SHIFT` and the right and left arrow keys ⬅️➡️.
 
@@ -56,8 +56,8 @@ There are three windows open in the screen session. Window 0 is running a Python
 
 The only shortcuts your users need to remember are **SHIFT-Left** and **SHIFT-Right**.<br>
 
-<h2 class="cyan">Run Commands and View Log Output</h2>
-<hr class="cyan">
+Run Commands and View Log Output
+================================
 
 Try the following command in the `shell` window. Remember you'll need to use the SHIFT-arrowkey shortcut to get into the shell prompt.
 
@@ -67,13 +67,13 @@ curl http://localhost:8000
 
 Now switch over to the `webserver` window. You'll see a new log entry for the connection you just made with the curl command.<br>
 
-<h2 class="cyan">Warning - One Terminal Tab Per Host</h2>
-<hr class="cyan">
+Warning - One Terminal Tab Per Host
+=====================================
 
 If you auto-start screen via the user's `~/.bashrc` file you should only have *one* Instruqt terminal tab per host. This is because every terminal tab will try and attach to the currently running screen session. If you need more tabs just run them inside of the screen session as shown in the example.<br>
 
-<h2 class="cyan">How Does It Work?</h2>
-<hr class="cyan">
+How Does It Work?
+=================
 
 There are two files that you'll need to enable auto-start of a screen session. The first is the `~/.screenrc` file located in the user's home directory. Take a look at this file and you'll see all the configuration options.
 
@@ -85,7 +85,7 @@ if [[ -z "$STY" ]]; then
 fi
 ```
 
-WARNING: You'll need to escape the dollar sign if you are using a HEREDOC to add this to your file. Here's how it should look in your setup script. This protects the dollar sign and prevents your STY variable from vanishing when the file is rendered:
+Warning - You'll need to escape the dollar sign if you are using a HEREDOC to add this to your file. Here's how it should look in your setup script. This protects the dollar sign and prevents your STY variable from vanishing when the file is rendered:
 
 ```bash
 cat >> ~/.bashrc << EOF
