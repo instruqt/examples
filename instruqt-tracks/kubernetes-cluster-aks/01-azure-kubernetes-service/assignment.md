@@ -38,13 +38,50 @@ tabs:
 difficulty: basic
 timelimit: 3600
 ---
-We've spun up an AKS cluster and installed the **kubectl** and **helm** commands on your workstation.
+Azure Playground
+================
+This is a proof-of-concept track that includes a Windows workstation, a Linux workstation, Powershell, Visual Studio Code, an Azure subscription, and an AKS cluster.
 
-The Azure `az` command line tool is also installed and ready to use.
+Feel free to explore the different tabs on the left and use the environment for testing and development.
+
+Azure GUI and az CLI
+====================
+You can access your Azure sandbox subscription with the login credentials found on the left. Go ahead and click the Subscription ID link to be taken to the Azure portal login page. You can use the Email and password that we have generated for you.
+
+Want to try out the CLI as well? Click on the Terminal tab and run this command:
+
+```
+az vm create \
+    --resource-group instruqtResourceGroup \
+    --name instruqtVM \
+    --image Win2022AzureEditionCore \
+    --public-ip-sku Standard \
+    --admin-username azureuser
+```
+
+You'll need to input a complex password of at least 12 characters in length. Congratulations, you just stood up a Windows Virtual Machine on Azure! Log onto the Azure Portal and see your VM in the UI if you wish.
+
+Visual Studio Code
+==================
+Instruqt tracks can include the Code Server version of Visual Studio Code, which runs right in the web browser.
+
+Now your students or participants can work with a full-featured IDE without having to install anything. Most marketplace extensions are supported and you can customize the interface with your own color and icon themes.
+
+Windows Desktop
+===============
+Need a Windows Desktop environment? We've got you covered.  Click on the RDP tab on the left to access the Windows desktop through your browser. This is a VM running Windows Datacenter 2019, and it has tools like Powershell 7 and Visual Studio Code pre-installed.
+
+Powershell
+==========
+Instruqt allows you to run a Powershell tab just like the Linux Terminal tab.  The `az` command also works here so you can access Azure from Linux or Windows Powershell command prompts.
+
+AKS On Demand
+=============
+We've also spun up an AKS cluster and installed the **kubectl** and **helm** commands on your workstation.
 
 Your AKS cluster name is **instruqt-cluster**.
 
-Go ahead and try running some commands:
+Go ahead and try running some commands in the Terminal tab:
 
 ```bash
 kubectl get nodes
@@ -52,7 +89,7 @@ kubectl get nodes
 
 You can copy this template and use it as a starting point for your own tracks that require AKS.
 
-Install the Juice Shop 🧃
+Juice Shop Sample App 🧃
 =========================
 
 Now let's install the Juice Shop application in your cluster with the following commands:
