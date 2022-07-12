@@ -1,0 +1,17 @@
+slug: kubernetes-cluster-aks
+id: xypns1iyd6sp
+type: track
+title: Azure Kubernetes Service (AKS)
+teaser: A template track that includes an AKS cluster.
+description: This template includes a three node AKS cluster and a workstation with
+  the kubectl and gcloud commands preinstalled. Use it as a starting point for your
+  own K8s enabled tracks.
+icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/default.png
+tags: []
+owner: examples
+developers:
+- sean@instruqt.com
+private: true
+published: true
+skipping_enabled: true
+checksum: "11160586732123299202"
