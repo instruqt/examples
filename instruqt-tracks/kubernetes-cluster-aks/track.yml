@@ -4,8 +4,8 @@ type: track
 title: Azure Kubernetes Service (AKS)
 teaser: A template track that includes an AKS cluster.
 description: This template includes a three node AKS cluster and a workstation with
-  the kubectl and gcloud commands preinstalled. Use it as a starting point for your
-  own K8s enabled tracks.
+  the kubectl and az commands preinstalled. Use it as a starting point for your own
+  K8s enabled tracks.
 icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/default.png
 tags: []
 owner: examples
@@ -14,4 +14,4 @@ developers:
 private: true
 published: true
 skipping_enabled: true
-checksum: "16486080007131105711"
+checksum: "17216431827672373997"
