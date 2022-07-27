@@ -11,7 +11,7 @@ tags: []
 owner: examples
 developers:
 - sean@instruqt.com
-private: true
+private: false
 published: true
 skipping_enabled: true
 checksum: "17216431827672373997"

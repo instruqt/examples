@@ -13,7 +13,7 @@ tags:
 owner: examples
 developers:
 - sean@instruqt.com
-private: true
+private: false
 published: true
 show_timer: true
 checksum: "5209257787166920548"
