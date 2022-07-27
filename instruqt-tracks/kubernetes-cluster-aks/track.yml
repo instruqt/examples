@@ -13,5 +13,6 @@ developers:
 - sean@instruqt.com
 private: false
 published: true
+maintenance: true
 skipping_enabled: true
 checksum: "17216431827672373997"
