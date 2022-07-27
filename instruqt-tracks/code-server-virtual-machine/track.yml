@@ -10,6 +10,6 @@ tags: []
 owner: examples
 developers:
 - sean@instruqt.com
-private: true
+private: false
 published: true
 checksum: "6952561371779095422"
