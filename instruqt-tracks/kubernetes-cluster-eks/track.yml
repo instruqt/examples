@@ -9,11 +9,12 @@ description: |-
 
   **WARNING:** This track is big and expensive to run. Do not make it public or it may be compromised and used for mining cryptocurrency.
 icon: https://cdn.instruqt.com/assets/templates/kubernetes.png
-tags: []
+tags:
+- no-ci
 owner: examples
 developers:
 - sean@instruqt.com
+- jules@instruqt.com
 private: false
 published: true
-maintenance: true
-checksum: "1536039240951559644"
+checksum: "3592846014948665161"

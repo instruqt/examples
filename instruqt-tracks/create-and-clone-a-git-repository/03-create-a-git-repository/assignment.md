@@ -1,6 +1,6 @@
 ---
 slug: create-a-git-repository
-id: waanr1xhplui
+id: dcct6jfo6rgd
 type: challenge
 title: Create a Git repository
 teaser: Creating repositories with Git

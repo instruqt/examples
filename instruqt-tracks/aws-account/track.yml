@@ -3,7 +3,10 @@ id: rmbhlv6j0ueq
 type: track
 title: AWS Account
 teaser: This track includes a single AWS account with administrator access.
-description: This track shows you how to configure Instruqt with an AWS account. The track grants Administrator level privileges to the user so make sure you keep it private. You can tighten up the permissions with the `managed_policies` and `iam_policy` settings in config.yml.
+description: This track shows you how to configure Instruqt with an AWS account. The
+  track grants Administrator level privileges to the user so make sure you keep it
+  private. You can tighten up the permissions with the `managed_policies` and `iam_policy`
+  settings in config.yml.
 icon: https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg
 tags: []
 owner: examples
@@ -12,4 +15,4 @@ developers:
 - sean@instruqt.com
 private: false
 published: true
-checksum: "13353551960788857015"
+checksum: "10264171681771602025"

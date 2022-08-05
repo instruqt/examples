@@ -1,6 +1,6 @@
 ---
 slug: get-help
-id: jjbbfifutbxt
+id: jyutnkl8l5sn
 type: challenge
 title: Get help
 teaser: Run the help command of git

@@ -7,7 +7,8 @@
 # to the same organization.
 #
 ##############################################################################
-name: Production Track Test
+name: production
+
 env:
   # Set these values to match your environment. Your token should be 
   # stored as a Github secret in your tracks repo. Also make sure you 
@@ -15,56 +16,85 @@ env:
   ORGANIZATION_SLUG: examples
   TRACK_DIR: instruqt-tracks
   INSTRUQT_TOKEN: ${{ secrets.INSTRUQT_TOKEN }}
+
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
+
 on:
   push:
     branches:
-    # Your branch might be called main. Make sure it matches your main branch!
+      - main
       - master
+    workflow_dispatch:
+
 jobs:
-  Get-Track-Slugs:
-  # Fetches track slugs and ids from the track-slugs.yml file
+  GetTrackSlugs:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "📝 Production validate/push/test job was triggered by a ${{ github.event_name }} event."
+
     - name: Check out repository code
-      uses: actions/checkout@v2
-    - id: install-yq
-      run: wget https://github.com/mikefarah/yq/releases/download/v4.21.1/yq_linux_amd64 && sudo mv yq_linux_amd64 /usr/bin/yq && chmod +x /usr/bin/yq
-    - id: create-matrix-data
+      uses: actions/checkout@v3
+    
+    - name: Install yq Package
+      uses: ./.github/actions/install-yq
+
+    # Needed for first commit of repository
+    - name: Check if track-slugs.yml exists
+      id: check_slugs
+      uses: andstor/file-existence-action@v1
+      with:
+        files: "${{ env.TRACK_DIR }}/track-slugs.yml"
+
+    # Needed for first commit of repository
+    - name: Generate temporary track-slugs.yml file
+      run: bash ./.github/scripts/generate-slugs.sh
+      if: steps.check_slugs.outputs.files_exists == 'false'
+
+    - name: Create Matrix Data
       run: echo "TRACKS=$(yq -o j $TRACK_DIR/track-slugs.yml | jq tostring | sed -e 's/^"//' -e 's/"$//')" >> $GITHUB_ENV
+
     - id: set-matrix
       run: echo "::set-output name=matrix::${{ env.TRACKS }}"
+
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
-  Test-Prod-Tracks:
+
+  TestProdTracks:
     runs-on: ubuntu-latest
-    needs: Get-Track-Slugs
+    if: 
+    needs: GetTrackSlugs
     strategy:
-      matrix: ${{ fromJson(needs.Get-Track-Slugs.outputs.matrix) }}
+      matrix: ${{ fromJson(needs.GetTrackSlugs.outputs.matrix) }}
     steps:
-      - run: echo "🧪 Running validate/push/test cycle on prod tracks."
+
       - name: Check out repository code
-        uses: actions/checkout@v2
-      - id: install-yq
-        run: wget https://github.com/mikefarah/yq/releases/download/v4.21.1/yq_linux_amd64 && sudo mv yq_linux_amd64 /usr/bin/yq && chmod +x /usr/bin/yq
-      - name: Promote dev tracks to production
-        uses: ./.github/actions/instruqt-track-promote
+        uses: actions/checkout@v3
+
+      # This step checks for the "no-ci" tag on a track
+      # If the tag is not present, this step succeeds
+
+      - name: Check CI
+        id: check-ci
+        uses: ./.github/actions/track-tags
         with:
-          path: ${{ env.TRACK_DIR }}/${{ matrix.tracks.slug }}
           id: ${{ matrix.tracks.id }}
+        continue-on-error: true
+
       - name: Track Validate
-        uses: ./.github/actions/instruqt-track-validate
+        uses: ./.github/actions/track-validate
         with:
           path: ${{ env.TRACK_DIR }}/${{ matrix.tracks.slug }}
+        if: steps.check-ci.outcome == 'success'
+      
       - name: Track Push
-        uses: ./.github/actions/instruqt-track-push
+        uses: ./.github/actions/track-push
         with:
           path: ${{ env.TRACK_DIR }}/${{ matrix.tracks.slug }}
+        if: steps.check-ci.outcome == 'success'
+      
       - name: Instruqt Track Test
-        uses: ./.github/actions/instruqt-track-test
+        uses: ./.github/actions/track-test
         with:
           path: ${{ env.TRACK_DIR }}/${{ matrix.tracks.slug }}
-      - run: echo "🤖 This job's status is ${{ job.status }}."
+        if: steps.check-ci.outcome == 'success'
