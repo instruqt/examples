@@ -1,6 +1,6 @@
 ---
 slug: run-git
-id: 0iuzpnopoch0
+id: yxpc6pl7bccf
 type: challenge
 title: Run Git
 teaser: Get familiar with the Git command.

@@ -7,12 +7,13 @@ description: This template includes a three node AKS cluster and a workstation w
   the kubectl and az commands preinstalled. Use it as a starting point for your own
   K8s enabled tracks.
 icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/default.png
-tags: []
+tags:
+- no-ci
 owner: examples
 developers:
 - sean@instruqt.com
+- jules@instruqt.com
 private: false
 published: true
-maintenance: true
 skipping_enabled: true
-checksum: "17216431827672373997"
+checksum: "3298203643076617972"

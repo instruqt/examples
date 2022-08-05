@@ -7,9 +7,6 @@ containers:
   - 80
 aws_accounts:
 - name: test
-  managed_policies:
-  - arn:aws:iam::aws:policy/AmazonEC2FullAccess
-  - arn:aws:iam::aws:policy/AmazonVPCFullAccess
   iam_policy: |
     {
       "Version": "2012-10-17",
@@ -30,3 +27,6 @@ aws_accounts:
         }
       ]
     }
+  managed_policies:
+  - arn:aws:iam::aws:policy/AmazonEC2FullAccess
+  - arn:aws:iam::aws:policy/AmazonVPCFullAccess

@@ -1,6 +1,6 @@
 ---
 slug: inspect-git-files
-id: qwcoihizbmsf
+id: on9gck6gehfr
 type: challenge
 title: Inspect Git files
 teaser: Learn a bit about how git works under the hood.

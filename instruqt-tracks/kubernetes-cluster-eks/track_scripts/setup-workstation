@@ -39,7 +39,7 @@ echo -e $PRIVKEY | tr -d '"' > ~/.ssh/instruqt
 chmod 600 ~/.ssh/instruqt
 
 # Stand up an EKS cluster
-eksctl create cluster --name $CLUSTER_NAME --region $AWS_REGION --with-oidc --ssh-access --nodes=3 --ssh-public-key instruqt --version 1.18
+eksctl create cluster --name $CLUSTER_NAME --region $AWS_REGION --with-oidc --ssh-access --nodes=3 --ssh-public-key instruqt --version 1.22
 
 # Configure our SSH config file. This enables `ssh nodeX` commands to work
 IPS=$(aws ec2 describe-instances --region $AWS_REGION --query "Reservations[*].Instances[*].[PublicIpAddress]" | jq -r '.[] | .[] | .[]')

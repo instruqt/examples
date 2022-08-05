@@ -1,6 +1,6 @@
 ---
 slug: vnc-test
-id: rfakzwewoxcu
+id: orszsov5gtel
 type: challenge
 title: VNC Proof of Concept
 teaser: This track shows you how to embed a Linux graphical desktop inside of Instruqt.

@@ -1,7 +1,11 @@
 ---
 tracks:
   - { slug: aws-account, id: rmbhlv6j0ueq }
+  - { slug: code-server-virtual-machine, id: vqmzimmsst4l }
   - { slug: create-and-clone-a-git-repository, id: jr1xt3myr3yp }
+  - { slug: kubernetes-cluster-aks, id: xypns1iyd6sp }
+  - { slug: kubernetes-cluster-eks, id: 19yhkcoibcfu }
+  - { slug: kubernetes-cluster-gke, id: vqv2q5yjilbw }
   - { slug: multi-k8s-track, id: zacliu4wkuqy }
   - { slug: persist-shell-session, id: mofbttvmneow }
   - { slug: vnc-proof-of-concept, id: e8dahfglijwf }

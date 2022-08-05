@@ -7,11 +7,12 @@ description: |-
   This template includes a single-zone, three node GKE cluster and a workstation with the **kubectl** and **gcloud** commands preinstalled. Use it as a starting point for your own K8s enabled tracks.
   **WARNING:** This track is big and expensive to run. Do not make it public or it may be compromised and used for mining cryptocurrency.
 icon: https://cdn.instruqt.com/assets/templates/kubernetes.png
-tags: []
+tags:
+- no-ci
 owner: examples
 developers:
 - sean@instruqt.com
+- jules@instruqt.com
 private: false
 published: true
-maintenance: true
-checksum: "17928750493971914869"
+checksum: "14555411685627187544"
