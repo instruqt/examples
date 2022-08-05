@@ -1,17 +1,19 @@
-slug: vnc-proof-of-concept
-id: e8dahfglijwf
+slug: vnc-proof-of-concept-dev
+id: lfy46sryaaku
 type: track
-title: VNC Proof of Concept
+title: DEV - VNC Proof of Concept
 teaser: Proof of concept to see VNC working in a Service tab.
 description: |-
   A long description of the track.
 
   You can use any GitHub flavoured markdown.
 icon: https://github.com/instruqt/instruqt-track-assets/blob/master/track-icons/VNC-logo.png?raw=true
-tags: []
+tags:
+- dev
 owner: examples
 developers:
 - sean@instruqt.com
 private: false
 published: true
-checksum: "7889713023893941146"
+maintenance: true
+checksum: "17341668885467606451"
