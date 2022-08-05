@@ -13,4 +13,5 @@ developers:
 - sean@instruqt.com
 private: false
 published: true
+maintenance: false
 checksum: "5614091068593189850"
