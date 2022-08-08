@@ -1,6 +1,6 @@
 ---
 slug: code-server
-id: yiiytmtazxx5
+id: z9peeu2havnf
 type: challenge
 title: Running Code Server in a Track
 teaser: This track has a running instance of Code Server, the open source version
