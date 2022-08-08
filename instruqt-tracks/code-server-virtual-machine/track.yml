@@ -3,14 +3,20 @@ id: vqmzimmsst4l
 type: track
 title: Code Server Virtual Machine
 teaser: Vanilla Ubuntu 20.04 LTS instance with open source Code Server installed.
-description: This example track is a starting point for building your own tracks that
-  require an advanced IDE for text and code editing.
+description: |-
+  This example track is a starting point for building your own tracks that require an advanced IDE for text and code editing.
+
+  The setup process is all included in the setup-workstation script, which downloads and installs code-server and creates a systemd startup script for it. You may adjust the starting directory that your learners will see in the command line.
+
+  There is also an example of how to install an extension automatically.
 icon: https://cdn.instruqt.com/img/logo/instruqt_isotype_indigo.svg
-tags: []
+tags:
+- prod
 owner: examples
 developers:
 - sean@instruqt.com
 - jules@instruqt.com
 private: false
 published: true
-checksum: "3404986254075047166"
+maintenance: false
+checksum: "1050255010950788155"
