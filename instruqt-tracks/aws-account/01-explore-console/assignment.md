@@ -25,4 +25,4 @@ timelimit: 1800
 ---
 👋 Introduction
 ===============
-Explore the console using the given login credentials
+Explore the console using the given login credentials.  Copy and paste your credentials into the AWS login page.
