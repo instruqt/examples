@@ -3,7 +3,8 @@ slug: vnc-test
 id: xulhp5dulzwd
 type: challenge
 title: VNC Proof of Concept
-teaser: This track shows you how to embed a Linux graphical desktop inside of Instruqt.
+teaser: This track shows you how to embed a Linux graphical desktop inside of Instruqt.  Try
+  it now!
 notes:
 - type: text
   contents: VNC can be used to log onto a graphical desktop environment on Linux servers.
