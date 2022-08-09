@@ -1,6 +1,6 @@
 ---
 slug: explore-console
-id: qn8w60dzzkyx
+id: ugvzd8ulv20p
 type: challenge
 title: Explore the console
 teaser: Explore the console
