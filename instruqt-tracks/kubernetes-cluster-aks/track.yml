@@ -13,7 +13,7 @@ owner: examples
 developers:
 - sean@instruqt.com
 - jules@instruqt.com
-private: false
+private: true
 published: true
 skipping_enabled: true
 checksum: "3298203643076617972"

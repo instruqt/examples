@@ -13,6 +13,6 @@ owner: examples
 developers:
 - sean@instruqt.com
 - jules@instruqt.com
-private: false
+private: true
 published: true
 checksum: "14555411685627187544"
