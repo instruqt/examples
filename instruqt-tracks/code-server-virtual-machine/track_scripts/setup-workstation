@@ -9,6 +9,16 @@ do
     sleep 1
 done
 
+mkdir -p /root/.local/share/code-server/User
+
+cat > /root/.local/share/code-server/User/settings.json <<-EOF
+{
+    "workbench.colorTheme": "Default Dark+",
+    "workbench.startupEditor": "none",
+    "security.workspace.trust.enabled": false,
+}
+EOF
+
 # Install Code server
 curl -fsSL https://code-server.dev/install.sh | sh
 
