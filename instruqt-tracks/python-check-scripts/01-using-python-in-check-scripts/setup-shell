@@ -1,0 +1,13 @@
+#!/bin/bash
+set -euxo pipefail
+
+until [ -f /opt/instruqt/bootstrap/host-bootstrap-completed ]; do
+    echo "Waiting for instruqt bootstrap to complete"
+    sleep 1
+done
+
+apt -y update
+apt -y install python3 python3-pip
+pip3 install requests
+
+exit 0

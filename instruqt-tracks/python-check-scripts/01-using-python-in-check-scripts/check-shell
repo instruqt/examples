@@ -1,0 +1,18 @@
+#!/bin/bash
+set -euxo pipefail
+echo "This is a Python check script."
+
+python3 << END
+import requests, sys, os
+# Example API request
+headers = {'Accept': 'application/json'}
+response = requests.get('https://icanhazdadjoke.com', headers=headers)
+joke = response.json()['joke']
+#print(joke)
+
+# Test to see if the task was completed correctly.
+# Use the FAIL: prefix when a mistake is found.
+if not os.path.exists('/root/hello.txt'):
+    print('FAIL: You need to create the /root/hello.txt file to proceed.')
+    sys.exit(1)
+END

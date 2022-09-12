@@ -1,0 +1,16 @@
+slug: python-check-scripts
+id: py9kq1uz0xgq
+type: track
+title: Python Check Scripts
+teaser: This track contains examples of how you can use Python with check scripts.
+description: The Instruqt check script is written in bash shell but there's no reason
+  you can't trigger a Python check script from the bash. This challenge will show
+  you how to do it.
+icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/default.png
+tags: []
+owner: instruqt-demos
+developers:
+- sean@instruqt.com
+private: false
+published: false
+checksum: "17068146691608412618"
