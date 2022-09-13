@@ -1,8 +1,4 @@
-#!/bin/bash
-set -euxo pipefail
-echo "This is a Python check script."
-
-python3 << END
+#!/bin/env python3
 import requests, sys, os
 # Example API request
 headers = {'Accept': 'application/json'}
@@ -15,4 +11,3 @@ joke = response.json()['joke']
 if not os.path.exists('/root/hello.txt'):
     print('FAIL: You need to create the /root/hello.txt file to proceed.')
     sys.exit(1)
-END
