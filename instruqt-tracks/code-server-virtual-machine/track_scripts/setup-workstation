@@ -34,7 +34,7 @@ Type=simple
 Restart=always
 RestartSec=1
 User=root
-ExecStart=/usr/bin/code-server --host 0.0.0.0 --port 8443 --cert --auth none /root
+ExecStart=/usr/bin/code-server --host 0.0.0.0 --port 8080 --auth none /root
 
 [Install]
 WantedBy=multi-user.target

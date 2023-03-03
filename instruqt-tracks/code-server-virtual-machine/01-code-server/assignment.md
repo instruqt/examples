@@ -19,7 +19,7 @@ tabs:
 - title: Code Editor
   type: service
   hostname: workstation
-  port: 8443
+  port: 8080
 - title: Terminal
   type: terminal
   hostname: workstation
