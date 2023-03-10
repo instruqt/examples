@@ -1,7 +1,6 @@
 #!/bin/bash
-# Choose your AWS region and cluster name
-AWS_REGION=us-west-2
-CLUSTER_NAME=instruqt-cluster
+
+set -euxo pipefail
 
 # Wait for Instruqt bootstrap to be complete
 while [ ! -f /opt/instruqt/bootstrap/host-bootstrap-completed ]
@@ -10,24 +9,30 @@ do
   sleep 1
 done
 
+# Choose your AWS region and cluster name
+AWS_REGION=us-west-2
+CLUSTER_NAME=instruqt-cluster
+
 # First we update the apt package manager cache
 apt -y update
 
 # Then we install some packages in noninteractive mode
-DEBIAN_FRONTEND=noninteractive apt -y install curl wget htop jq vim git apt-transport-https ca-certificates gnupg awscli
+DEBIAN_FRONTEND=noninteractive apt -y install curl wget htop jq vim git apt-transport-https ca-certificates gnupg awscli unzip
 
-# Configure the Helm apt repository
-curl https://baltocdn.com/helm/signing.asc | apt-key add -
-echo "deb https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list
-
-# Install helm
-apt -y update
-apt -y install helm
+# Update AWS CLI 
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+./aws/install
 
 # Install the kubectl command line tool
-curl -o /tmp/kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/linux/amd64/kubectl
+curl -o /tmp/kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.25.6/2023-01-30/bin/linux/amd64/kubectl
 mv /tmp/kubectl /usr/local/bin
 chmod +x /usr/local/bin/kubectl
+
+# Install helm
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
 
 # Install the eksctl command line tool
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
@@ -39,7 +44,7 @@ echo -e $PRIVKEY | tr -d '"' > ~/.ssh/instruqt
 chmod 600 ~/.ssh/instruqt
 
 # Stand up an EKS cluster
-eksctl create cluster --name $CLUSTER_NAME --region $AWS_REGION --with-oidc --ssh-access --nodes=3 --ssh-public-key instruqt --version 1.22
+eksctl create cluster --name $CLUSTER_NAME --region $AWS_REGION --with-oidc --ssh-access --nodes=3 --ssh-public-key instruqt --version 1.25
 
 # Configure our SSH config file. This enables `ssh nodeX` commands to work
 IPS=$(aws ec2 describe-instances --region $AWS_REGION --query "Reservations[*].Instances[*].[PublicIpAddress]" | jq -r '.[] | .[] | .[]')
