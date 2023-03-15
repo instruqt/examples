@@ -1,0 +1,18 @@
+slug: azure-starter-track
+id: 8aqia1rgwnte
+title: Azure Starter Track
+teaser: A template track that includes a workstation and Azure subscription.
+description: This template includes a Linux workstation with terraform and an Azure
+  subscription.
+icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/default.png
+tags: []
+owner: examples
+developers:
+- sean@instruqt.com
+- jules@instruqt.com
+skipping_enabled: true
+lab_config:
+  overlay: false
+  width: 25
+  position: right
+checksum: "5006053091224376757"
