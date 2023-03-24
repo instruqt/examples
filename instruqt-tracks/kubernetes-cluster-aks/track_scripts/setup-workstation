@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euxo pipefail
-echo "Running track setup script on host workstation"
+apt update
+apt install curl -y
 
 # Wait for the Instruqt host bootstrap to finish
 until [ -f /opt/instruqt/bootstrap/host-bootstrap-completed ]
@@ -9,38 +10,14 @@ do
 done
 
 # Install Azure CLI
-curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-
-# Install Code server
-curl -fsSL https://code-server.dev/install.sh | sh
-
-# Create Code Server startup script
-cat <<-EOF > /etc/systemd/system/code-server.service
-[Unit]
-Description=Code Server
-After=network.target
-StartLimitIntervalSec=0
-
-[Service]
-Type=simple
-Restart=always
-RestartSec=1
-User=root
-ExecStart=/usr/bin/code-server --host 0.0.0.0 --port 8443 --cert --auth none /root
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-# Start Code Server
-systemctl enable code-server
-systemctl start code-server
-
-# Install an IDE extension
-# code-server --install-extension ms-python.python --user-data-dir /user-dat
+curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
 # Log onto az cli
 az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
+
+# Register AZ  namespaces
+az provider register --namespace Microsoft.OperationsManagement
+az provider register --namespace Microsoft.OperationalInsights
 
 # Create a resource group
 az group create --name instruqtResourceGroup --location eastus
@@ -52,11 +29,10 @@ az aks create -g instruqtResourceGroup -n instruqt-cluster --enable-managed-iden
 az aks install-cli
 
 # Install helm
-curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
-apt -y install apt-transport-https
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-apt -y update
-apt -y install helm
+# Install helm
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
 
 # Configure kubectl using az get-credentials
 az aks get-credentials --resource-group instruqtResourceGroup --name instruqt-cluster
