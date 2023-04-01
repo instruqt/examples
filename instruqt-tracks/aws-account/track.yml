@@ -1,6 +1,6 @@
-slug: aws-account-dev
-id: l5kiw4xsmffd
-title: DEV - AWS Account
+slug: aws-account
+id: rmbhlv6j0ueq
+title: AWS Account
 teaser: This track includes a single AWS account with administrator access.
 description: This track shows you how to configure Instruqt with an AWS account. The
   track grants Administrator level privileges to the user so make sure you keep it
@@ -8,14 +8,14 @@ description: This track shows you how to configure Instruqt with an AWS account.
   settings in config.yml.
 icon: https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg
 tags:
-- dev
+- prod
 owner: examples
 developers:
 - bruno@instruqt.com
 - sean@instruqt.com
-maintenance: true
+maintenance: false
 lab_config:
   overlay: false
   width: 25
   position: right
-checksum: "3263781566256292058"
+checksum: "6739385244815092413"
