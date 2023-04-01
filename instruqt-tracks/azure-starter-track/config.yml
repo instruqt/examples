@@ -5,6 +5,11 @@ containers:
   shell: /bin/bash
   ports:
   - 80
+virtualmachines:
+- name: workstation
+  image: ubuntu-os-cloud/ubuntu-2004-lts
+  shell: /bin/bash
+  machine_type: n1-standard-1
 azure_subscriptions:
 - name: azsubscription
   roles:

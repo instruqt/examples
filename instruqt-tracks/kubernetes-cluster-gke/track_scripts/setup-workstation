@@ -1,7 +1,6 @@
 #!/bin/bash
-# Choose your zone and cluster name
-ZONE="us-central1-a"
-CLUSTERNAME="instruqt-cluster"
+
+set -euxo pipefail
 
 # Wait for Instruqt bootstrap to be complete
 while [ ! -f /opt/instruqt/bootstrap/host-bootstrap-completed ]
@@ -10,32 +9,34 @@ do
   sleep 1
 done
 
+# Choose your zone and cluster name
+ZONE="us-central1-a"
+CLUSTERNAME="instruqt-cluster"
+
 # First we update the apt package manager cache
 apt -y update
 
 # Then we install some packages in noninteractive mode
 DEBIAN_FRONTEND=noninteractive apt -y install curl wget htop jq vim git apt-transport-https ca-certificates gnupg python3
 
-# Use the gcloud installation process described in the docs:
-# https://cloud.google.com/sdk/docs/install#deb
-echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-
-# Configure the Helm repository
-curl https://baltocdn.com/helm/signing.asc | apt-key add -
-echo "deb https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list
-
-# Update apt again and install gcloud, kubectl and helm
-apt -y update
-apt -y install helm kubectl google-cloud-sdk-gke-gcloud-auth-plugin
-
-# We have to install this way because the Debian APT package throws too many warnings and deprecation errors
-# It appears to be out of date.
-wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-387.0.0-linux-x86_64.tar.gz
-tar -zxf google-cloud-cli-387.0.0-linux-x86_64.tar.gz
+# Install gcloud CLI
+curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-419.0.0-linux-x86_64.tar.gz
+tar -zxf google-cloud-cli-419.0.0-linux-x86_64.tar.gz
 ./google-cloud-sdk/install.sh --rc-path /root/.bashrc --command-completion true --path-update true --quiet
 echo "export USE_GKE_GCLOUD_AUTH_PLUGIN=True" >> /root/.bashrc
 source /root/.bashrc
+
+# Install GKE gcloud auth plugin 
+gcloud components install gke-gcloud-auth-plugin -q
+
+# Install kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+install -m 0755 kubectl /usr/local/bin/kubectl
+
+# Install helm
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
 
 # Fetch our Google Service Account credentials
 mkdir -p /root/.config/gcloud
@@ -52,3 +53,6 @@ gcloud container clusters create $CLUSTERNAME --num-nodes=3 --zone $ZONE
 
 # Get credentials for our cluster
 gcloud container clusters get-credentials $CLUSTERNAME --zone $ZONE
+
+# Wait for cluster
+while $(kubectl get nodes | grep 'metrics.k8s.io/v1beta1'); do sleep 3; done

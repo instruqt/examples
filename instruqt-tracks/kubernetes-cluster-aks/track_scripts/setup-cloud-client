@@ -1,0 +1,40 @@
+#!/bin/bash
+set -euxo pipefail
+apt update
+apt install curl -y
+
+# Wait for the Instruqt host bootstrap to finish
+until [ -f /opt/instruqt/bootstrap/host-bootstrap-completed ]
+do
+    sleep 1
+done
+
+# Install Azure CLI
+curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+
+# Log onto az cli
+az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
+
+# Register AZ  namespaces
+az provider register --namespace Microsoft.OperationsManagement
+az provider register --namespace Microsoft.OperationalInsights
+
+# Create a resource group
+az group create --name instruqtResourceGroup --location eastus
+
+# Create an AKS cluster
+az aks create -g instruqtResourceGroup -n instruqt-cluster --enable-managed-identity --node-count 3 --enable-addons monitoring
+
+# Let az install the kubectl command
+az aks install-cli
+
+# Install helm
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
+# Configure kubectl using az get-credentials
+az aks get-credentials --resource-group instruqtResourceGroup --name instruqt-cluster
+
+# Get nodes to verify it's running
+kubectl get nodes
