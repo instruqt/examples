@@ -58,7 +58,7 @@ jobs:
             echo "Skip CI tag found, skipping $t"
           else
             echo "Adding $t to test matrix"
-            CI_TRACKS+=$t
+            CI_TRACKS="$CI_TRACKS$t\n"
           fi
         done
 
