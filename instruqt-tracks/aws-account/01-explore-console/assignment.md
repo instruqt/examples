@@ -1,6 +1,6 @@
 ---
 slug: explore-console
-id: qn8w60dzzkyx
+id: el0ellidmri3
 type: challenge
 title: Explore the console
 teaser: Explore the console
@@ -25,4 +25,4 @@ timelimit: 1800
 ---
 👋 Introduction
 ===============
-Explore the console using the given login credentials
+Explore the console using the given login credentials. You can copy the user name and password from the console tab.
