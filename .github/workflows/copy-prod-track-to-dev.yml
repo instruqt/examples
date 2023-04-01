@@ -1,0 +1,74 @@
+##############################################################################
+# Instruqt Github Actions Workflow
+#
+# This workflow will convert the provided track into a DEV version
+##############################################################################
+name: copy-prod-track-to-dev
+
+env:
+  # Store your Instruqt API key and track directory as a secret
+  # and variable in your Github repo.
+  TRACK_DIR: ${{ vars.TRACK_DIR }}
+  INSTRUQT_TOKEN: ${{ secrets.INSTRUQT_TOKEN }}
+  
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+on: 
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: Track Slug
+        required: true
+        type: string
+
+jobs:
+  CreateDevTrack:
+    runs-on: ubuntu-latest
+    # Prevents accidentally running the workflow on the main or master branch.
+    if: github.ref != 'refs/heads/master' && github.ref != 'refs/heads/main'
+    steps:
+
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Create dev track from prod track
+        run: |
+          # Change into the track directory
+          cd ${{ env.TRACK_DIR }}/${{ inputs.slug }}
+
+          # Check whether this is already a dev version track
+          ISDEV=$(yq '.slug | test(".*-dev$")' track.yml)
+          if [[ $ISDEV == "true" ]]; then
+            echo -e "It looks like the track slug already has the -dev suffix"
+            exit 1
+          fi
+          
+          # Strip out the track ids and rename the dev track
+          echo "Converting track to dev version..."
+          for file in $(find . -name assignment.md); do
+            yq --inplace --front-matter=process 'del(.id)' $file
+          done
+          
+          # Remove IDs and update slugs/titles
+          yq --inplace 'del(.id)' track.yml
+          yq --inplace '.slug += "-dev"' track.yml
+          yq --inplace '.title = "DEV - " + .title' track.yml
+          
+          # Replace prod tag with dev tag
+          yq --inplace 'del(.tags[] | select(. == "prod"))' track.yml
+          yq --inplace '.tags = .tags + "dev" ' track.yml
+          
+          # Set into maintenance mode
+          yq --inplace '.maintenance = true' track.yml
+
+      - name: Push dev track to Instruqt
+        uses: ./.github/actions/push-track
+        with:
+          path: ${{ env.TRACK_DIR }}/${{ inputs.slug }}
+
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Creating dev version of ${{ inputs.slug }}

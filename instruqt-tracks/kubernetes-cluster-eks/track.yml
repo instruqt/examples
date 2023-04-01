@@ -11,6 +11,7 @@ description: |-
 icon: https://cdn.instruqt.com/assets/templates/kubernetes.png
 tags:
 - no-ci
+- prod
 owner: examples
 developers:
 - sean@instruqt.com

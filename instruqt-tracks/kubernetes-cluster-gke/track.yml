@@ -9,10 +9,10 @@ description: |-
 icon: https://cdn.instruqt.com/assets/templates/kubernetes.png
 tags:
 - no-ci
+- prod
 owner: examples
 developers:
 - sean@instruqt.com
-- jules@instruqt.com
 private: true
 published: true
 checksum: "14555411685627187544"

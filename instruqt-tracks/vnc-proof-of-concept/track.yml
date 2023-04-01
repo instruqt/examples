@@ -6,7 +6,7 @@ description: This track is a proof of concept showing how you can run VNC on a v
   machine. This enables you to use Linux desktop applications in a GUI environment.
 icon: https://github.com/instruqt/instruqt-track-assets/blob/master/track-icons/VNC-logo.png?raw=true
 tags:
-- ""
+- prod
 owner: examples
 developers:
 - sean@instruqt.com

@@ -7,7 +7,8 @@ description: The Instruqt check script is written in bash shell but there's no r
   you can't trigger a Python check script from the bash. This challenge will show
   you how to do it.
 icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/default.png
-tags: []
+tags:
+- prod
 owner: instruqt-demos
 developers:
 - sean@instruqt.com

@@ -9,7 +9,7 @@ description: |-
   **WARNING:** This track is big and can be expensive to run. Do not make it public or it may be compromised and used for mining cryptocurrency.
 icon: https://cdn.instruqt.com/assets/templates/kubernetes.png
 tags:
-- ""
+- prod
 owner: examples
 developers:
 - sean@instruqt.com

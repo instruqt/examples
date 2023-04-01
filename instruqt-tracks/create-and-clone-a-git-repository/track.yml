@@ -12,6 +12,7 @@ icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/git.png
 tags:
 - git
 - version control
+- prod
 owner: examples
 developers:
 - bruno@instruqt.com

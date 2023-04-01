@@ -9,10 +9,10 @@ description: This template includes a three node AKS cluster and a workstation w
 icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/default.png
 tags:
 - no-ci
+- prod
 owner: examples
 developers:
 - sean@instruqt.com
-- jules@instruqt.com
 private: true
 published: true
 skipping_enabled: true

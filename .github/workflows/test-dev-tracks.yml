@@ -1,0 +1,141 @@
+##############################################################################
+# Instruqt Github Actions Workflow
+#
+# This workflow file and its actions will run a validate/push/test cycle on
+# on a directory full of instruqt tracks. All the tracks in the directory must
+# belong to the same Instruqt team.
+#
+# This workflow will run on every pull request to the main/master branch.
+##############################################################################
+name: test-dev-tracks
+
+env:
+  # Store your Instruqt API key and track directory as a secret
+  # and variable in your Github repo.
+  TRACK_DIR: ${{ vars.TRACK_DIR }}
+  INSTRUQT_TOKEN: ${{ secrets.INSTRUQT_TOKEN }}
+  # Leave this alone, it will be auto-populated.
+  TRACKS: ""
+
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+  workflow_dispatch:
+
+jobs:
+  GetTracks:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Check out repository code
+      uses: actions/checkout@v3
+    
+    - name: Install yq Package
+      uses: ./.github/actions/install-yq
+
+    - name: Create Matrix Data
+      run: |
+        # This function checks to see whether any of no-ci, skip-ci, or ci-skip exist.
+        function skip_enabled() {
+          if ! [[ -f "$1/track.yml" ]]; then
+              echo "Error: $1 is not a valid track directory"
+              return 1
+          fi
+      
+          # Run the yq command to check the tags array and return the result
+          yq_result=$(yq '.tags | any_c(test("(?i)no-ci|skip-ci|ci-skip"))' "$1/track.yml")
+          echo $yq_result
+        }
+
+        cd $TRACK_DIR
+        # Build a list of tracks to test. If a track has a skip tag, it will not be added to the list.
+        for t in $(ls -d *); do
+          if [[ $(skip_enabled $t) == 'true' ]]; then
+            echo "Skip CI tag found, skipping $t"
+          else
+            echo "Adding $t to test matrix"
+            CI_TRACKS+=$t
+          fi
+        done
+
+        echo TRACKS="{\\\"tracks\\\":$(echo $CI_TRACKS | jq -R -s -c 'split("\n")[:-1]' | sed 's/"/\\"/g')}" >> $GITHUB_ENV
+
+    - id: set-matrix
+      run: |
+        echo "matrix=${{ env.TRACKS }}" >> $GITHUB_OUTPUT
+
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+
+  TestDevTracks:
+    runs-on: ubuntu-latest
+    # Ensures that you can't run this action on the main or master branch
+    if: ${{ needs.GetTracks.outputs.matrix != '{"tracks":[""]}' && needs.GetTracks.outputs.matrix != '' }} && github.ref != 'refs/heads/master' && github.ref != 'refs/heads/main'
+    needs: GetTracks
+    strategy:
+      matrix: ${{ fromJson(needs.GetTracks.outputs.matrix) }}
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        
+      - name: Install yq Package
+        uses: ./.github/actions/install-yq
+
+      # Here we use a trick to get the dev tracks that need testing.
+      # We convert each PROD track from our matrix into a DEV track locally.
+      - name: Create dev track from prod track
+        run: |
+          # Change into the track directory
+          cd ${{ env.TRACK_DIR }}/${{ matrix.tracks }}
+
+          # Check whether this is already a dev version track
+          ISDEV=$(yq '.slug | test(".*-dev$")' track.yml)
+          if [[ $ISDEV == "true" ]]; then
+            echo -e "It looks like the track slug already has the -dev suffix"
+            exit 1
+          fi
+          
+          # Strip out the track ids and rename the dev track
+          echo "Converting track to dev version..."
+          for file in $(find . -name assignment.md); do
+            yq eval --inplace --front-matter=process 'del(.id)' $file
+          done
+          
+          # Remove IDs and update slugs/titles
+          yq eval --inplace 'del(.id)' track.yml
+          yq eval --inplace '.slug += "-dev"' track.yml
+          yq eval --inplace '.title = "DEV - " + .title' track.yml
+          
+          # Replace prod tag with dev tag
+          yq eval --inplace 'del(.tags[] | select(. == "prod"))' track.yml
+          yq eval --inplace '.tags = .tags + "dev" ' track.yml
+          
+          # Set into maintenance mode
+          yq eval --inplace '.maintenance = true' track.yml
+
+      # Then, we attempt to pull these DEV tracks from the Instruqt platform.
+      # This ensures you get the latest version of the dev track.
+      - name: Pull track from instruqt
+        id: pull-track
+        uses: ./.github/actions/pull-track
+        with:
+          path: ${{ env.TRACK_DIR }}/${{ matrix.tracks }}
+        continue-on-error: true
+        
+      - name: Track Validate
+        id: validate-track
+        uses: ./.github/actions/validate-track
+        with:
+          path: ${{ env.TRACK_DIR }}/${{ matrix.tracks }}
+        if: steps.pull-track.outcome == 'success'
+      
+      - name: Track Test
+        id: test-track
+        uses: ./.github/actions/test-track
+        with:
+          path: ${{ env.TRACK_DIR }}/${{ matrix.tracks }}
+        if: steps.validate-track.outcome == 'success'

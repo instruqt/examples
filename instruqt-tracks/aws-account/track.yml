@@ -8,7 +8,8 @@ description: This track shows you how to configure Instruqt with an AWS account.
   private. You can tighten up the permissions with the `managed_policies` and `iam_policy`
   settings in config.yml.
 icon: https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg
-tags: []
+tags:
+- prod
 owner: examples
 developers:
 - bruno@instruqt.com
