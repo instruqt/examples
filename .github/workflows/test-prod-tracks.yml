@@ -62,7 +62,9 @@ jobs:
           fi
         done
 
-        echo $CI_TRACKS
+        for value in "${CI_TRACKS[@]"; do
+          echo $value
+        done
 
         echo TRACKS="{\\\"tracks\\\":$(echo $CI_TRACKS | jq -R -s -c 'split("\n")[:-1]' | sed 's/"/\\"/g')}" >> $GITHUB_ENV
 
