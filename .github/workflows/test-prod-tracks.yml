@@ -67,7 +67,7 @@ jobs:
           echo $value
         done
 
-        escaped_json_string=$(printf '%s' "${CI_TRACKS[@]}" | jq -R . | jq -s 'join(",")' | sed 's/"/\\\"/g')
+        escaped_list=$(printf '%s' "${CI_TRACKS[@]}" | jq -R . | jq -s 'join(",")' | sed 's/"/\\\\\\\"/g')
         echo TRACKS="{\\\"tracks\\\":$escaped_json_string}" >> $GITHUB_ENV
 
     - id: set-matrix
