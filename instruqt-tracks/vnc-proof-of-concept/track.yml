@@ -10,6 +10,9 @@ tags:
 owner: examples
 developers:
 - sean@instruqt.com
-private: false
-published: true
-checksum: "7100454793154852082"
+maintenance: false
+lab_config:
+  overlay: false
+  width: 25
+  position: right
+checksum: "2957737591229574925"
