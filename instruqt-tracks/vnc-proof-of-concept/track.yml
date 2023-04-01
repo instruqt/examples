@@ -1,15 +1,18 @@
-slug: vnc-proof-of-concept
-id: e8dahfglijwf
-title: VNC Proof of Concept
+slug: vnc-proof-of-concept-dev
+id: bei5xaopyop4
+title: DEV - VNC Proof of Concept
 teaser: Proof of concept to see VNC working in a Service tab.
 description: This track is a proof of concept showing how you can run VNC on a virtual
   machine. This enables you to use Linux desktop applications in a GUI environment.
 icon: https://github.com/instruqt/instruqt-track-assets/blob/master/track-icons/VNC-logo.png?raw=true
 tags:
-- prod
+- dev
 owner: examples
 developers:
 - sean@instruqt.com
-private: false
-published: true
-checksum: "7100454793154852082"
+maintenance: true
+lab_config:
+  overlay: false
+  width: 25
+  position: right
+checksum: "2957737591229574925"
