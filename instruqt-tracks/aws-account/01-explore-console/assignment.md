@@ -25,4 +25,4 @@ timelimit: 1800
 ---
 👋 Introduction
 ===============
-Explore the console using the given login credentials
+Explore the console using the given login credentials. You can copy the user name and password from the console tab.
