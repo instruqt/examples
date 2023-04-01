@@ -62,7 +62,7 @@ jobs:
           fi
         done
 
-        for value in "${CI_TRACKS[@]"; do
+        for value in "${CI_TRACKS[@])"; do
           echo $value
         done
 
