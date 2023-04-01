@@ -62,11 +62,6 @@ jobs:
           fi
         done
 
-        # For debugging
-        for value in "${CI_TRACKS[@]}"; do
-          echo $value
-        done
-
         escaped_json_string=$(printf "%s\n" "${CI_TRACKS[@]}" | jq -R -s -c 'split("\n")[:-1]' | sed 's/"/\\\"/g')
         echo $escaped_json_string
         echo TRACKS="{\\\"tracks\\\":$escaped_json_string}" >> $GITHUB_ENV
