@@ -9,6 +9,7 @@ description: The Instruqt check script is written in bash shell but there's no r
 icon: https://storage.googleapis.com/instruqt-frontend/img/tracks/default.png
 tags:
 - prod
+- no-ci
 owner: instruqt-demos
 developers:
 - sean@instruqt.com
