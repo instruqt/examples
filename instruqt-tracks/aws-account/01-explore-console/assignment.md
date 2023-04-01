@@ -1,6 +1,6 @@
 ---
 slug: explore-console
-id: maij7hrfng5f
+id: fclf2usjimex
 type: challenge
 title: Explore the console
 teaser: Explore the console
