@@ -1,6 +1,5 @@
 slug: aws-account
 id: rmbhlv6j0ueq
-type: track
 title: AWS Account
 teaser: This track includes a single AWS account with administrator access.
 description: This track shows you how to configure Instruqt with an AWS account. The
@@ -14,6 +13,9 @@ owner: examples
 developers:
 - bruno@instruqt.com
 - sean@instruqt.com
-private: false
-published: true
-checksum: "10264171681771602025"
+maintenance: false
+lab_config:
+  overlay: false
+  width: 25
+  position: right
+checksum: "11236307655354829695"
