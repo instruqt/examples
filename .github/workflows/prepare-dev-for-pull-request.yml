@@ -21,7 +21,7 @@ on:
   workflow_dispatch:
     inputs:
       slug:
-        description: Track Slug
+        description: Track Slug (do not include -dev suffix)
         required: true
         type: string
 
@@ -66,8 +66,8 @@ jobs:
 
           # If track is in maintenance mode, exit with an error
           if $(yq '.maintenance == true' track.yml); then
-            echo "Track is in maintenance mode. Please turn off"
-            echo "maintenance mode and run this workflow again."
+            echo "Your dev track ${{ inputs.slug }}-dev is in maintenance mode."
+            echo "Please turn off maintenance mode and run this workflow again."
             exit 1
           fi
 
