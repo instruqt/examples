@@ -1,6 +1,0 @@
-{
-    "github-actions.workflows.pinned.workflows": [
-        ".github/workflows/copy-prod-track-to-dev.yml",
-        ".github/workflows/prepare-dev-for-pull-request.yml"
-    ]
-}
