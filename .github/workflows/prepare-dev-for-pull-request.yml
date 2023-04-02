@@ -64,6 +64,13 @@ jobs:
           # Change directory to the track directory
           cd ${{ env.TRACK_DIR }}/${{ inputs.slug }}
 
+          # Check whether the track is in maintenance mode, if it is exit with an error
+          if grep -q "maintenance: true" track.yml; then
+            echo "Track is in maintenance mode. Please turn off"
+            echo "maintenance mode and run this workflow again."
+            exit 1
+          fi
+
           # Remove the dev suffix and title prefix if they exist, also update tags
           sed -i '0,/^slug/{s/-dev//}' track.yml
           sed -i '0,/^title/{s/DEV - //}' track.yml
@@ -71,9 +78,6 @@ jobs:
     
           # Replace the track ID with the production track ID
           sed -i "s/^id: .*/id: ${{ env.TRACKID }}/g" track.yml
-    
-          # Remove maintenance tag
-          sed -i 's/^maintenance: true/maintenance: false/g' track.yml
 
       # Commits prod-ready changes to the dev branch.
       - name: Commit Changes
