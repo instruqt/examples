@@ -1,6 +1,6 @@
 ---
 slug: explore-console
-id: 9lrwzidvuj6o
+id: hikra9964ggp
 type: challenge
 title: Explore the console
 teaser: Explore the console
@@ -25,4 +25,4 @@ timelimit: 1800
 ---
 👋 Introduction
 ===============
-Explore the console using the given login credentials. You can copy the user name and password from the console tab. The AWS command line tool `aws` is also available.
+Explore the console using the given login credentials. You can copy the user name and password from the console tab.

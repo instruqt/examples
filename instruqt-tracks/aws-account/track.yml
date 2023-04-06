@@ -13,9 +13,8 @@ owner: examples
 developers:
 - bruno@instruqt.com
 - sean@instruqt.com
-maintenance: false
 lab_config:
   overlay: false
   width: 25
   position: right
-checksum: "8867525473030106126"
+checksum: "175553722915705915"
