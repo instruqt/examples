@@ -1,10 +1,12 @@
 slug: flask-input
+id: ruhr21ojkcem
 title: Gather User Input with Flask
+teaser: Get user input and use it in your tracks.
 description: Run a flask server to display a form and gather input. Use the input
   to then create resources.
-icon: ""
+icon: https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/267_Python-512.png
 tags: []
-owner: instruqt-demos
+owner: examples
 developers:
 - jacob@instruqt.com
 show_timer: true
@@ -13,3 +15,4 @@ lab_config:
   overlay: false
   width: 33
   position: right
+checksum: "6016736456435056199"

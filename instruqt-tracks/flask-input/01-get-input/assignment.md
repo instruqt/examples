@@ -1,6 +1,6 @@
 ---
 slug: get-input
-id: zicv9vmor0fl
+id: 6kwom94r5g8y
 type: challenge
 title: Get Input
 teaser: Get user input via the Flask app

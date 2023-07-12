@@ -1,6 +1,6 @@
 ---
 slug: use-input
-id: 4ugjcgkwgxaf
+id: dokwgfuykd44
 type: challenge
 title: Use Input
 teaser: Now that we have input, lets do something with it
