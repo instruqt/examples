@@ -1,0 +1,10 @@
+version: "3"
+virtualmachines:
+- name: ubuntu
+  image: ubuntu-os-cloud/ubuntu-2204-lts
+  shell: /bin/bash
+  machine_type: n1-standard-1
+aws_accounts:
+- name: bucket
+  managed_policies:
+  - arn:aws:iam::aws:policy/AdministratorAccess

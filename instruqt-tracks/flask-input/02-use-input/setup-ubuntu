@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Make sure env vars are sourced
+source /etc/profile.d/instruqt-env.sh
+
+# Create bucket
+MY_VAR=$(cat /root/input.txt)
+aws s3api create-bucket --bucket "${MY_VAR}-${INSTRUQT_PARTICIPANT_ID}" --region us-east-1 > /dev/null
+
+# Set Instruqt Runtime vars
+agent variable set BUCKET_NAME "${MY_VAR}-${INSTRUQT_PARTICIPANT_ID}"
