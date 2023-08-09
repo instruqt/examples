@@ -1,0 +1,217 @@
+#!/bin/bash
+#
+# This is a sample setup script. Rename this file to setup-$CONTAINER
+# (where $container is the name of the container as defined in your config.yml),
+# and replace this content with your own script.
+#
+# This script will be run when you setup the challenge.
+#
+# Remember that the exit code is important. See the documentation
+# for more information.
+#
+echo "waiting 180 seconds for cloud-init to update /etc/apt/sources.list"
+timeout 180 /bin/bash -c \
+  'until stat /var/lib/cloud/instance/boot-finished 2>/dev/null; do echo waiting ...; sleep 1; done'
+# Added sleep to make sure apt is unlocked
+echo "Sleeping to make sure we are started"
+sleep 30
+
+# Get temporary license
+# curl -o license.json --user instruqt:nk60kjLvnjIN -H "Content-Type: application/json" -H "Accept: application/json" -X POST -d '{"firstName":"Instruqt","lastName":"User","company":"Training","email":"instruqt@company.com"}' https://download.xebialabs.com/api/temporary/xl-release
+# Temporarily disabled checking of SSL Cert, as it is expired
+curl -k -o license.json --user instruqt:nk60kjLvnjIN -H "Content-Type: application/json" -H "Accept: application/json" -X POST -d '{"firstName":"Instruqt","lastName":"User","company":"Training","email":"instruqt@company.com"}' https://download.xebialabs.com/api/temporary/xl-release
+# Alternative Server
+# curl -o license.json --user instruqt:nk60kjLvnjIN -H "Content-Type: application/json" -H "Accept: application/json" -X POST -d '{"firstName":"Instruqt","lastName":"User","company":"Training","email":"instruqt@company.com"}' https://download2.xebialabs.com/api/temporary/xl-release
+cat license.json | jq -r .license > /opt/xlr/server/conf/xl-release-license.lic
+
+# Add hotfixes for Reporting data
+svn export https://github.com/xebialabs/instruqt-trainings.git/trunk/topic-xl-release-training/track-xlrelease-end-user-training/artifacts/resources/hotfix
+svn export https://github.com/xebialabs/instruqt-trainings.git/trunk/topic-xl-release-training/track-xlrelease-end-user-training/artifacts/resources/hotfix-plugins
+
+cp hotfix/fix-release-risks-and-progress.jar /opt/xlr/server/hotfix/lib/
+cp hotfix-plugins/workaround-for-fixing-tile-legends.jar /opt/xlr/server/hotfix/plugins/
+chown -R xlrelease:xlrelease /opt/xlr/server/hotfix/*
+rm -rf hotfix
+rm -rf hotfix-plugins
+
+chown -R xlrelease:xlrelease /opt/xlr/server
+
+# Restart XL Release
+systemctl restart xl-release
+rm license.json
+# Check if XL Release is up
+echo "Check XL Release Status"
+while ! nc -z localhost 5516; do echo "Port 5516 not open" && sleep 1; done
+echo "Port is open, continuing"
+
+# Set Archiving to 0 Days
+curl -f http://admin:admin@localhost:5516/settings/ci/Configuration/settings/ArchivingSettings -X PUT \
+  -H 'Accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{"id":"Configuration/settings/ArchivingSettings",
+  "type":"xlrelease.ArchivingSettings",
+  "releaseAgeToDeleteFromJcr":0,
+  "preArchivingEnabled":true}'
+
+  echo " Test"
+
+  ############# Git and Jenkins connections to XL release
+#!/bin/bash
+
+# Set the SANDBOX_ID environment variable
+#export SANDBOX_ID="a5mq9l7jyhiy"
+SANDBOX_ID=$(echo ${_SANDBOX_ID})
+
+# Define the Git server cURL command
+git_curl_command=$(cat <<EOF
+curl -u admin:admin "http://xlrelease.$SANDBOX_ID.instruqt.io:5516/api/v1/config" -i -X POST \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -d '{
+ "id" : "null",
+ "type" : "git.Repository",
+ "folderId" : "Applications/FolderSamplesAndTutorials",
+ "title" : "Git server",
+ "url" : "http://gituser@git-jenkins-server.$SANDBOX_ID.instruqt.io/project.git",
+ "username" : "gituser",
+ "password" : "password"
+}'
+EOF
+)
+
+# Define the Jenkins server cURL command
+jenkins_curl_command=$(cat <<EOF
+curl -u admin:admin "http://xlrelease.$SANDBOX_ID.instruqt.io:5516/api/v1/config" -i -X POST \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -d '{
+ "id" : "null",
+ "type" : "jenkins.Server",
+ "folderId" : "Applications/FolderSamplesAndTutorials",
+ "title" : "Jenkins server",
+ "url" : "http://git-jenkins-server.$SANDBOX_ID.instruqt.io:8080/",
+ "username" : "admin",
+ "password" : "admin"
+}'
+EOF
+)
+
+# Execute the Git server cURL command
+eval "$git_curl_command"
+
+# Execute the Jenkins server cURL command
+eval "$jenkins_curl_command"
+
+#!/bin/bash
+
+# Set the SANDBOX_ID environment variable
+# export SANDBOX_ID="a5mq9l7jyhiy"
+SANDBOX_ID=$(echo ${_SANDBOX_ID})
+
+# Define the cURL command
+curl_command="curl -u admin:admin 'http://xlrelease.$SANDBOX_ID.instruqt.io:5516/api/v1/templates/?folderId=Applications/FolderSamplesAndTutorials' -i -X POST \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -d '{
+ \"id\" : \"Applications/Release162151faba694d03aa3065665cf26f21\",
+ \"type\" : \"xlrelease.Release\",
+ \"title\" : \"Applications/XL_Test\",
+ \"scheduledStartDate\" : \"2019-08-22T20:04:56.903+02:00\",
+ \"flagStatus\" : \"OK\",
+ \"overdueNotified\" : false,
+ \"maxConcurrentReleases\" : 100,
+ \"releaseTriggers\" : [ ],
+ \"teams\" : [ ],
+ \"memberViewers\" : [ ],
+ \"roleViewers\" : [ ],
+ \"attachments\" : [ ],
+ \"phases\" : [ ],
+ \"queryableStartDate\" : \"2019-08-22T20:04:56.903+02:00\",
+ \"realFlagStatus\" : \"OK\",
+ \"status\" : \"TEMPLATE\",
+ \"tags\" : [ ],
+ \"variables\" : [ ],
+ \"calendarPublished\" : false,
+ \"tutorial\" : false,
+ \"abortOnFailure\" : false,
+ \"allowConcurrentReleasesFromTrigger\" : true,
+ \"runningTriggeredReleasesCount\" : 0,
+ \"createdFromTrigger\" : false,
+ \"extensions\" : [ ],
+ \"autoStart\" : false,
+ \"automatedResumeCount\" : 0,
+ \"riskScore\" : \"000\",
+ \"totalRiskScore\" : \"0000\",
+ \"\$metadata\" : {
+   \"globalVariables\" : null,
+   \"folderVariables\" : null
+ }
+}'"
+
+# Execute the cURL command
+eval "$curl_command"
+
+
+#!/bin/bash
+SANDBOX_ID=$(echo ${_SANDBOX_ID})
+# Set the URL and title variables
+url="http://xlrelease.$SANDBOX_ID.instruqt.io:5516/api/v1/templates/"
+title="Applications/XL_Test"
+
+# Define the cURL command to retrieve the templates
+curl_command="curl -u admin:admin -H 'Accept: application/json' -X GET '$url'"
+
+# Execute the cURL command and filter the response with jq
+template_id=$(eval "$curl_command" | jq -r --arg title "$title" '.[] | select(.title == $title) | .id')
+
+# Print the template ID
+echo "Template ID: $template_id"
+
+# Define the cURL command to create the phase with the template ID
+phase_curl_command="curl -u admin:admin 'http://xlrelease.$SANDBOX_ID.instruqt.io:5516/api/v1/phases/Applications/$template_id/phase' -i -X POST \
+ -H 'Content-Type: application/json' \
+ -H 'Accept: application/json' \
+ -d '{
+\"id\" : \"$template_id\",
+\"type\" : \"xlrelease.Phase\",
+\"title\" : \"Trigger Phase\",
+\"flagStatus\" : \"OK\",
+\"overdueNotified\" : false,
+\"tasks\" : [ ],
+\"release\" : \"Applications/Release162151faba694d03aa3065665cf26f21\",
+\"status\" : \"PLANNED\",
+\"color\" : \"#00FF00\"
+}'"
+
+# Execute the cURL command to create the phase
+eval "$phase_curl_command"
+
+# Fetch the phase ID
+phase=$(curl -u admin:admin "http://xlrelease.$SANDBOX_ID.instruqt.io:5516/api/v1/phases/byTitle?phaseTitle=Trigger%20Phase&releaseId=$template_id" -i -H 'Accept: application/json' | awk -F'"' '/"id":"/{print $4}')
+
+echo "Phase ID: $phase"
+
+DEL=$(curl -u admin:admin "http://xlrelease.$SANDBOX_ID.instruqt.io:5516/api/v1/phases/byTitle?phaseTitle=New%20Phase&releaseId=$template_id" -i -H 'Accept: application/json' | awk -F'"' '/"id":"/{print $4}')
+
+echo " Delete Phase ID is $DEL"
+
+curl -u admin:admin "http://xlrelease.$SANDBOX_ID.instruqt.io:5516/api/v1/phases/$DEL" -i -X DELETE
+
+# Create a new task using the phase ID
+curl -u admin:admin "http://xlrelease.$SANDBOX_ID.instruqt.io:5516/api/v1/tasks/$phase/tasks" -i -X POST \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-d '{
+"id": "null",
+"type": "xlrelease.UserInputTask",
+"title": "Jenkins task"
+}'
+
+# Fetch the task ID
+task=$(curl -u admin:admin "http://xlrelease.$SANDBOX_ID.instruqt.io:5516/api/v1/tasks/byTitle?taskTitle=Jenkins%20task&releaseId=$template_id" -i -H 'Accept: application/json' | awk -F'"' '/"id":"/{print $4}')
+
+echo "task is $task"
+
+# Change the task type to Jenkins Build
+curl -u admin:admin "http://xlrelease.$SANDBOX_ID.instruqt.io:5516/api/v1/tasks/$task/changeType?targetType=jenkins.Build" -i -X POST \
+   -H 'Content-Type: application/json'

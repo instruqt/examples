@@ -1,0 +1,36 @@
+version: "3"
+virtualmachines:
+- name: xlrelease
+  image: instruqt-xebialabs/xlrelease-22-3-x
+  shell: /usr/bin/start.sh
+  machine_type: n1-highcpu-8
+  allow_external_ingress:
+  - http
+  - https
+  - high-ports
+- name: ansibletower
+  image: instruqt/ansible-tower
+  shell: /bin/bash
+  machine_type: n1-standard-2
+  allow_external_ingress:
+  - http
+  - https
+  - high-ports
+- name: git-jenkins-server
+  image: instruqt-support/jenkinsproject
+  shell: /bin/bash
+  machine_type: n1-standard-2
+  allow_external_ingress:
+  - http
+  - https
+  - high-ports
+- name: local-system
+  image: ubuntu-os-cloud/ubuntu-2004-lts
+  shell: /bin/bash
+  machine_type: n1-standard-1
+  allow_external_ingress:
+  - http
+  - https
+  - high-ports
+secrets:
+- name: HTTP_SECRET
