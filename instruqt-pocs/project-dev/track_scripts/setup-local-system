@@ -1,0 +1,4 @@
+mkdir project ; cd project ; git init
+git config --global user.email "user1@yourdomain.com"
+git config --global user.name "user1"
+git remote add origin http://gituser:password@git-jenkins-server.${_SANDBOX_ID}.instruqt.io/project.git
