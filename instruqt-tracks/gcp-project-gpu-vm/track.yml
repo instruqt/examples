@@ -1,0 +1,24 @@
+slug: gcp-project-gpu-vm
+id: gayr4pqhyraw
+title: GPU-enabled VM on GCP
+description: |-
+  This track showcases how to use a GCP project to spin up a GPU enabled VM instance, and expose it safely to end-users.
+
+  ⚠️ GPUs are in high demand. This service is offered on a best-effort basis, as Instruqt depends on the available capacity of GPU from GCP.
+icon: https://upload.wikimedia.org/wikipedia/sco/2/21/Nvidia_logo.svg
+tags: []
+owner: examples
+developers:
+- ade@instruqt.com
+show_timer: true
+idle_timeout: 300
+timelimit: 600
+lab_config:
+  sidebar_enabled: true
+  feedback_recap_enabled: true
+  feedback_tab_enabled: false
+  loadingMessages: true
+  override_challenge_layout: false
+  hideStopButton: false
+checksum: "16319721601733152107"
+enhanced_loading: false

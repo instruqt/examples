@@ -1,0 +1,18 @@
+version: "3"
+containers:
+- name: workstation
+  image: gcr.io/instruqt/cloud-client:2
+  shell: /bin/bash
+  memory: 512
+gcp_projects:
+- name: gcpproject
+  services:
+  - compute.googleapis.com
+  regions:
+  - europe-west1
+  roles:
+  - roles/viewer
+  - roles/iap.tunnelResourceAccessor
+  admin_roles:
+  - roles/compute.admin
+  - roles/iap.tunnelResourceAccessor

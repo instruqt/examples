@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# GPU instance properties
+INSTANCE_NAME=gpu-instance
+ZONE=europe-west1-b
+IMAGE=projects/ubuntu-os-accelerator-images/global/images/ubuntu-accelerator-2404-amd64-with-nvidia-580-v20251021
+
+# Set up admin credentials so we can provision a VM,
+# using the CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE env var so we don't leak credentials to users
+PROJECT_NAME="GCPPROJECT"
+SA_KEY="INSTRUQT_GCP_PROJECT_${PROJECT_NAME}_ADMIN_SERVICE_ACCOUNT_KEY"
+
+SA_JSON=$(mktemp)
+trap "rm -f $SA_JSON" EXIT
+echo ${!SA_KEY} | base64 -d > $SA_JSON
+export CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE=$SA_JSON 
+
+# [optional] Generate SSH key to allow logging into machine
+ssh-keygen -N '' -C 'root@workstation' -f /root/.ssh/ssh_user
+
+# Provision GPU enabled instance, passing metadata ssh-keys and startup-script is optional
+gcloud compute instances create $INSTANCE_NAME \
+    --zone=$ZONE \
+    --machine-type=n1-standard-1 \
+    --accelerator=count=1,type=nvidia-tesla-t4 \
+    --create-disk=auto-delete=yes,boot=yes,device-name=$INSTANCE_NAME,image=$IMAGE,mode=rw,size=10,type=pd-balanced \
+    --network-interface=network-tier=PREMIUM,stack-type=IPV4_ONLY,subnet=default \
+    --tags=http-server \
+    --maintenance-policy=TERMINATE \
+    --no-service-account \
+    --no-scopes \
+    --metadata="ssh-keys=root:$(cat /root/.ssh/ssh_user.pub)"
+
+# [optional] Allow GPC IAP to access services running on the VM
+gcloud compute firewall-rules create allow-ingress-from-iap \
+  --direction=INGRESS \
+  --action=allow \
+  --rules=tcp:80 \
+  --source-ranges=35.235.240.0/20
+
+# [optional] Install nginx for demo purposes
+while ! gcloud compute ssh root@$INSTANCE_NAME \
+    --zone=$ZONE \
+    --ssh-key-file=/root/.ssh/ssh_user \
+    --command="apt-get update && apt-get install -y nginx"; do
+    sleep 1;
+done
+
+unset CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE
+
+# [optional] Start IAP tunnel, so we can access nginx via a service tab
+nohup gcloud compute start-iap-tunnel $INSTANCE_NAME 80 \
+    --zone=$ZONE \
+    --local-host-port=0.0.0.0:8888 \
+    --iap-tunnel-disable-connection-check >/var/log/iap-tunnel.log 2>&1 </dev/null & disown
+sleep 2 # Small grace period to allow IAP tunnel to start properly
+
+# [optional] You can add a Terminal tab to the instance, using a custom command:
+# gcloud compute ssh root@gpu-instance --zone=europe-west1-b --tunnel-through-iap --ssh-key-file=/root/.ssh/ssh_user
