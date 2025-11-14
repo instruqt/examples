@@ -10,9 +10,10 @@ gcp_projects:
   - compute.googleapis.com
   regions:
   - europe-west1
+  - us-central1
+  - asia-southeast1
   roles:
   - roles/viewer
-  - roles/iap.tunnelResourceAccessor
   admin_roles:
   - roles/compute.admin
   - roles/iap.tunnelResourceAccessor

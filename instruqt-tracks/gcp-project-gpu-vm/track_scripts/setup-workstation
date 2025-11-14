@@ -1,8 +1,14 @@
 #!/bin/bash
 
+set -ex
+
+# ⚠️ GPUs are in high demand. This service is offered on a best-effort basis, as Instruqt depends on the available GPU capacity from GCP.
+# To mitigate, the setup script will loop over the Availability Zones in the `europe-west1`, `us-central1` and `asia-southeast1` regions
+# to try creating a VM with a `nvidia-tesla-t4` GPU.
+
 # GPU instance properties
 INSTANCE_NAME=gpu-instance
-ZONE=europe-west1-b
+AZS=( europe-west1-b europe-west1-c europe-west1-d us-central1-a us-central1-b us-central1-c us-central1-f asia-southeast1-a asia-southeast1-b asia-southeast1-c )
 IMAGE=projects/ubuntu-os-accelerator-images/global/images/ubuntu-accelerator-2404-amd64-with-nvidia-580-v20251021
 
 # Set up admin credentials so we can provision a VM,
@@ -19,17 +25,30 @@ export CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE=$SA_JSON
 ssh-keygen -N '' -C 'root@workstation' -f /root/.ssh/ssh_user
 
 # Provision GPU enabled instance, passing metadata ssh-keys and startup-script is optional
-gcloud compute instances create $INSTANCE_NAME \
-    --zone=$ZONE \
-    --machine-type=n1-standard-1 \
-    --accelerator=count=1,type=nvidia-tesla-t4 \
-    --create-disk=auto-delete=yes,boot=yes,device-name=$INSTANCE_NAME,image=$IMAGE,mode=rw,size=10,type=pd-balanced \
-    --network-interface=network-tier=PREMIUM,stack-type=IPV4_ONLY,subnet=default \
-    --tags=http-server \
-    --maintenance-policy=TERMINATE \
-    --no-service-account \
-    --no-scopes \
-    --metadata="ssh-keys=root:$(cat /root/.ssh/ssh_user.pub)"
+HAVE_INSTANCE=false
+for ZONE in "${AZS[@]}"; do
+    echo "Trying zone $ZONE"
+
+    if gcloud compute instances create $INSTANCE_NAME \
+        --zone="$ZONE" \
+        --machine-type=n1-standard-1 \
+        --accelerator=count=1,type=nvidia-tesla-t4 \
+        --create-disk=auto-delete=yes,boot=yes,device-name=$INSTANCE_NAME,image=$IMAGE,mode=rw,size=10,type=pd-balanced \
+        --network-interface=network-tier=PREMIUM,stack-type=IPV4_ONLY,subnet=default \
+        --tags=http-server \
+        --maintenance-policy=TERMINATE \
+        --no-service-account \
+        --no-scopes \
+        --metadata="ssh-keys=root:$(cat /root/.ssh/ssh_user.pub)";
+    then
+        HAVE_INSTANCE=true
+        break
+    fi 
+done;
+
+if [ $HAVE_INSTANCE = "false" ]; then
+    exit 1
+fi
 
 # [optional] Allow GPC IAP to access services running on the VM
 gcloud compute firewall-rules create allow-ingress-from-iap \
@@ -40,7 +59,7 @@ gcloud compute firewall-rules create allow-ingress-from-iap \
 
 # [optional] Install nginx for demo purposes
 while ! gcloud compute ssh root@$INSTANCE_NAME \
-    --zone=$ZONE \
+    --zone="$ZONE" \
     --ssh-key-file=/root/.ssh/ssh_user \
     --command="apt-get update && apt-get install -y nginx"; do
     sleep 1;
@@ -48,9 +67,13 @@ done
 
 unset CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE
 
-# [optional] Start IAP tunnel, so we can access nginx via a service tab
+# [optional] Start IAP tunnels, so we can ssh into it and access nginx via a service tab
+nohup gcloud compute start-iap-tunnel $INSTANCE_NAME 22 \
+    --zone="$ZONE" \
+    --local-host-port=0.0.0.0:2222 \
+    --iap-tunnel-disable-connection-check >/var/log/iap-tunnel.log 2>&1 </dev/null & disown
 nohup gcloud compute start-iap-tunnel $INSTANCE_NAME 80 \
-    --zone=$ZONE \
+    --zone="$ZONE" \
     --local-host-port=0.0.0.0:8888 \
     --iap-tunnel-disable-connection-check >/var/log/iap-tunnel.log 2>&1 </dev/null & disown
 sleep 2 # Small grace period to allow IAP tunnel to start properly

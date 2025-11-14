@@ -8,7 +8,7 @@ tabs:
   title: GPU instance terminal
   type: terminal
   hostname: workstation
-  cmd: gcloud compute ssh root@gpu-instance --zone=europe-west1-b --ssh-key-file=/root/.ssh/ssh_user
+  cmd: ssh root@localhost -p 2222 -i /root/.ssh/ssh_user -o StrictHostKeyChecking=no
 - id: vwlouz1jvlpr
   title: GPU instance service
   type: service

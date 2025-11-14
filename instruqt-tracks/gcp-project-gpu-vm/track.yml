@@ -2,10 +2,12 @@ slug: gcp-project-gpu-vm
 id: gayr4pqhyraw
 title: GPU-enabled VM on GCP
 teaser: Spin up a GPU-enabled VM on GCP
-description: |-
+description: |
   This track showcases how to use a GCP project to spin up a GPU enabled VM instance, and expose it safely to end-users.
 
   ⚠️ GPUs are in high demand. This service is offered on a best-effort basis, as Instruqt depends on the available GPU capacity from GCP.
+
+  To mitigate, the setup script will loop over the Availability Zones in the `europe-west1`, `us-central1` and `asia-southeast1` regions to try creating a VM with a `nvidia-tesla-t4` GPU.
 icon: https://upload.wikimedia.org/wikipedia/sco/2/21/Nvidia_logo.svg
 tags: []
 owner: examples
@@ -21,5 +23,5 @@ lab_config:
   loadingMessages: true
   override_challenge_layout: false
   hideStopButton: false
-checksum: "13520685861727949840"
+checksum: "1342215714251244990"
 enhanced_loading: false
