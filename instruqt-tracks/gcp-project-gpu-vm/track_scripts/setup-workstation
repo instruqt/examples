@@ -79,4 +79,4 @@ nohup gcloud compute start-iap-tunnel $INSTANCE_NAME 80 \
 sleep 2 # Small grace period to allow IAP tunnel to start properly
 
 # [optional] You can add a Terminal tab to the instance, using a custom command:
-# gcloud compute ssh root@gpu-instance --zone=europe-west1-b --tunnel-through-iap --ssh-key-file=/root/.ssh/ssh_user
+# ssh root@localhost -p 2222 -i /root/.ssh/ssh_user -o StrictHostKeyChecking=no
