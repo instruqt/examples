@@ -33,6 +33,9 @@ for ZONE in "${AZS[@]}"; do
         --zone="$ZONE" \
         --machine-type=n1-standard-1 \
         --accelerator=count=1,type=nvidia-tesla-t4 \
+        --provisioning-model=FLEX_START \
+        --instance-termination-action=DELETE \
+        --max-run-duration=7200s \
         --create-disk=auto-delete=yes,boot=yes,device-name=$INSTANCE_NAME,image=$IMAGE,mode=rw,size=10,type=pd-balanced \
         --network-interface=network-tier=PREMIUM,stack-type=IPV4_ONLY,subnet=default \
         --tags=http-server \
