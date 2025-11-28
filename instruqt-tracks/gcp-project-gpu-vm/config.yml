@@ -14,6 +14,7 @@ gcp_projects:
   - asia-southeast1
   roles:
   - roles/viewer
+  - roles/iap.tunnelResourceAccessor
   admin_roles:
   - roles/compute.admin
   - roles/iap.tunnelResourceAccessor
