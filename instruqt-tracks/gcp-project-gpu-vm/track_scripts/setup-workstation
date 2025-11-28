@@ -6,6 +6,9 @@ set -ex
 # To mitigate, the setup script will loop over the Availability Zones in the `europe-west1`, `us-central1` and `asia-southeast1` regions
 # to try creating a VM with a `nvidia-tesla-t4` GPU.
 
+# Make sure to get the latest gcloud cli, so we can use flex-start provisioning for VMs
+apt-get update && apt-get -y --only-upgrade install google-cloud-cli
+
 # GPU instance properties
 INSTANCE_NAME=gpu-instance
 AZS=( europe-west1-b europe-west1-c europe-west1-d us-central1-a us-central1-b us-central1-c us-central1-f asia-southeast1-a asia-southeast1-b asia-southeast1-c )
