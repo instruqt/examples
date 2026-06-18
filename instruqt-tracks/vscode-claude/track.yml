@@ -9,6 +9,10 @@ description: |-
   - Configure AWS Bedrock as the AI backend for Claude Code
   - Use a cloud-hosted VSCode IDE with Claude Code pre-installed
   - Leverage Instruqt cloud accounts to provide AWS credentials automatically
+
+  **Container image:**
+  This track uses a pre-built VSCode container available at `gcr.io/instruqt/vscode-claude`.
+  Source: https://github.com/instruqt/docker-vscode-claude
 icon: ./assets/claude.svg
 tags:
 - vscode
