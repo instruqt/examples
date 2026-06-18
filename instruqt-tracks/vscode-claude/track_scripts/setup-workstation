@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# Inject example broken code, to be fixed by Claude
+echo "const sum = (a: number, b: number): number => {
+  return a ** b
+};
+
+export default sum;
+" > /workspace/sum.ts

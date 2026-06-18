@@ -1,0 +1,30 @@
+slug: vscode-claude
+title: VSCode with Claude
+teaser: Use VSCode with Claude Code connected to AWS Bedrock
+description: |-
+  Learn how to use Instruqt cloud accounts to enable AI coding agents in a hands-on lab environment.
+  This track uses AWS Bedrock to power Claude Code inside VSCode — no Claude subscription required.
+
+  **This track demonstrates how to:**
+  - Configure AWS Bedrock as the AI backend for Claude Code
+  - Use a cloud-hosted VSCode IDE with Claude Code pre-installed
+  - Leverage Instruqt cloud accounts to provide AWS credentials automatically
+icon: ./assets/claude.svg
+tags:
+- vscode
+- bedrock
+- claude
+owner: examples
+developers: []
+idle_timeout: 600
+timelimit: 1800
+lab_config:
+  sidebar_enabled: true
+  feedback_recap_enabled: true
+  feedback_tab_enabled: false
+  loadingMessages: true
+  override_challenge_layout: false
+  hideStopButton: false
+  default_layout: AssignmentRight
+  default_layout_sidebar_size: 33
+enhanced_loading: false
