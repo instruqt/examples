@@ -1,17 +1,14 @@
 ---
 slug: passing-tests
-id: qyxigqikpyki
 type: challenge
 title: Passing tests
-teaser: Use Claude Code with AWS Bedrock to fix a failing test
+teaser: Use Claude Code with AWS Bedrock to fix broken code
 tabs:
-- id: 0e39zqtyjvl5
-  title: Code editor
+- title: Code editor
   type: service
   hostname: workstation
   port: 8080
-- id: zydvggpjbvub
-  title: Terminal
+- title: Terminal
   type: terminal
   hostname: workstation
   workdir: /root/project
