@@ -1,7 +1,7 @@
 ---
-slug: passing-tests
+slug: using-claude
 type: challenge
-title: Passing tests
+title: Using Claude
 teaser: Use Claude Code with AWS Bedrock to fix broken code
 tabs:
 - title: Code editor

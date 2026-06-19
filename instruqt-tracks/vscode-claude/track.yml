@@ -15,9 +15,9 @@ description: |-
   Source: https://github.com/instruqt/docker-vscode-claude
 icon: ./assets/claude.svg
 tags:
-- vscode
 - bedrock
 - claude
+- vscode
 owner: examples
 developers: []
 idle_timeout: 600
