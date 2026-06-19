@@ -1,0 +1,1 @@
+agent variable set url $HOSTNAME.$_SANDBOX_ID.instruqt.io

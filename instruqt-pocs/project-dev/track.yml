@@ -1,0 +1,25 @@
+slug: project-dev
+id: x5pgbznec6ns
+title: Project-Dev
+teaser: project-dev
+description: |-
+  # In this track, XL Release monitors git commits. When a commit is made on the git server, XL Release initiates a release and calls Jenkins.
+  # Jenkins task creates an app and deploys it to the Ansible tower.
+icon: https://cdn.instruqt.com/img/logo/instruqt_isotype_indigo.svg
+tags:
+- xlr
+- jenkins
+- ansible
+- git
+owner: instruqt-support
+developers:
+- harpreet@instruqt.com
+maintenance: true
+show_timer: true
+skipping_enabled: true
+timelimit: 36000
+lab_config:
+  overlay: false
+  width: 33
+  position: right
+checksum: "3601476797991513166"
